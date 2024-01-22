@@ -56,7 +56,7 @@ class PreGameScreen:
 
     def start_game(self):
         clock = pygame.time.Clock()
-        timer_duration = 5000 
+        timer_duration = 1000 
         elapsed_time = 0 
         font = pygame.font.Font(None, 36)
         while True:

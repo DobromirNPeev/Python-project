@@ -1,0 +1,14 @@
+{
+  "audio_files": [
+    {
+      "file_path": "pesen.mp3",
+      "question": "What is the name of this songs?",
+      "answer": "Srqda"
+    },
+    {
+      "file_path": "pesen2.mp3",
+      "question": "Who is/are performing that song?",
+      "answer": "Alisiq i emrah"
+    }
+  ]
+}

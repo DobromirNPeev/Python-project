@@ -8,5 +8,55 @@
     "question": "Which planet is known as the Red Planet?",
     "choices": ["Venus", "Mars", "Jupiter", "Saturn"],
     "correct_answer": "Mars"
+  },
+  {
+    "question": "What is the largest ocean on Earth?",
+    "choices": ["Atlantic", "Indian", "Arctic", "Pacific"],
+    "correct_answer": "Pacific"
+  },
+  {
+    "question": "Who wrote the play 'Romeo and Juliet'?",
+    "choices": ["Charles Dickens", "William Shakespeare", "Jane Austen", "Emily Brontë"],
+    "correct_answer": "William Shakespeare"
+  },
+  {
+    "question": "Which element has the chemical symbol 'O'?",
+    "choices": ["Oxygen", "Osmium", "Oganesson", "Osmium"],
+    "correct_answer": "Oxygen"
+  },
+  {
+    "question": "In which year did the United States declare its independence?",
+    "choices": ["1776", "1789", "1801", "1756"],
+    "correct_answer": "1776"
+  },
+  {
+    "question": "What is the currency of Japan?",
+    "choices": ["Won", "Yuan", "Yen", "Ringgit"],
+    "correct_answer": "Yen"
+  },
+  {
+    "question": "Which famous scientist developed the theory of general relativity?",
+    "choices": ["Isaac Newton", "Albert Einstein", "Galileo Galilei", "Stephen Hawking"],
+    "correct_answer": "Albert Einstein"
+  },
+  {
+    "question": "What is the capital of Australia?",
+    "choices": ["Sydney", "Melbourne", "Canberra", "Brisbane"],
+    "correct_answer": "Canberra"
+  },
+  {
+    "question": "Which gas makes up the majority of Earth's atmosphere?",
+    "choices": ["Oxygen", "Carbon Dioxide", "Nitrogen", "Argon"],
+    "correct_answer": "Nitrogen"
+  },
+  {
+    "question": "Who painted the Mona Lisa?",
+    "choices": ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Claude Monet"],
+    "correct_answer": "Leonardo da Vinci"
+  },
+  {
+    "question": "What is the largest mammal in the world?",
+    "choices": ["Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
+    "correct_answer": "Blue Whale"
   }
 ]

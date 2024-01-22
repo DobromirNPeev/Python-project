@@ -1,0 +1,54 @@
+{
+  "questions": [
+    {
+      "question": "Who is that comedian ?",
+      "image": "ivankirkov.jpg",
+      "correct_answer": "Ivan Kirkov"
+    },
+    {
+      "question": "Who is that ReGex master?",
+      "image": "viktorbechev.jpg",
+      "correct_answer": "Viktor Bechev"
+    },
+    {
+      "question": "Who is that historcial figure ?",
+      "image": "napoleon.jpg",
+      "correct_answer": "Napoleon"
+    },
+    {
+      "question": "Who is that bulgarian singer ?",
+      "image": "grafa.jpg",
+      "correct_answer": "Grafa"
+    },
+    {
+      "question": "Who is that Java hater ?",
+      "image": "georgikunchev.jpg",
+      "correct_answer": "Grafa"
+    },
+    {
+      "question": "Who is that Roman emperor ?",
+      "image": "ceaser.jpg",
+      "correct_answer": "Ceaser"
+    },
+    {
+      "question": "Who is that bulgarian singer/politician ?",
+      "image": "slavitrifonov.jpg",
+      "correct_answer": "Slavi Trifonov"
+    },
+    {
+      "question": "Who is that bulgarian politician ?",
+      "image": "tsvetantsvetanov.jpg",
+      "correct_answer": "Tsvetan Tsvetanov"
+    },
+    {
+      "question": "Who painted that picture ?",
+      "image": "vangogh.jpg",
+      "correct_answer": "Van Gogh"
+    },
+    {
+      "question": "Who is that wrestler/actor ?",
+      "image": "therock.jpg",
+      "correct_answer": "The Rock"
+    }    
+  ]
+}
