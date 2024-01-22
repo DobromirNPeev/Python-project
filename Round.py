@@ -143,16 +143,22 @@ class ImageRound:
         for entry in data['questions']:
             question = entry['question']
             image_filename = entry['image']
-            correct_answer = entry['correct_answer']
+            correct_answers = entry['correct_answer']
 
             img_path = os.path.join(image_folder, image_filename)
             img = pygame.image.load(img_path)
 
-            self.image_data.append( {'question' : entry['question'], 'image': img, 'rect': img.get_rect(center=(self.screen_width // 2, self.screen_height // 2-150)), 'correct_answer': correct_answer})
+            self.image_data.append( {'question' : entry['question'], 'image': img, 'rect': img.get_rect(center=(self.screen_width // 2, self.screen_height // 2-150)), 'correct_answer': correct_answers})
 
     @staticmethod
-    def is_correct(answer,correct_answer):
-        return answer.lower() == correct_answer.lower()
+    def is_correct(answer,correct_answers):
+        is_correct_answer=False
+        if isinstance(correct_answers,list):
+            for correct_answer in correct_answer:
+                is_correct_answer = answer.lower() == correct_answer.lower()
+            return is_correct_answer
+        else:
+            return answer.lower() == correct_answers.lower()
 
     def render(self,screen):
         screen.fill(WHITE)
@@ -163,7 +169,7 @@ class ImageRound:
                 question_text = Button(self.screen_width // 2-222, self.screen_height // 2,500,50,random_question['question'],lambda: None)
                 type_area = Button(self.screen_width // 2-115, self.screen_height // 2+84,250,35,"",lambda: None)
                 clock = pygame.time.Clock()
-                timer_duration = 1000 
+                timer_duration = 15000 
                 elapsed_time = 0 
                 font = pygame.font.Font(None, 36)
                 found_answer = None
@@ -176,7 +182,6 @@ class ImageRound:
                             pygame.quit()
                         elif event.type == pygame.KEYDOWN:
                             if event.key == pygame.K_RETURN:
-                                # Handle Enter key (you can add more logic here)
                                 found_answer=self.is_correct(text,correct_answer)
                                 text = ""
                             elif event.key == pygame.K_BACKSPACE:
@@ -281,7 +286,7 @@ class AudioRound:
                 normalized_audio = audio.normalize()
                 print(self.generated_questions)
                 pygame.mixer.init()
-                sound = pygame.mixer.Sound((normalized_audio[10000:]-20).raw_data)
+                sound = pygame.mixer.Sound((normalized_audio[20000:]-40).raw_data)
                 sound.play()
                 while True:
                     events = pygame.event.get()

@@ -3,7 +3,7 @@
     {
       "question": "Who is that comedian ?",
       "image": "ivankirkov.jpg",
-      "correct_answer": "Ivan Kirkov"
+      "correct_answer": ["Ivan Kirkov","Papata"]
     },
     {
       "question": "Who is that ReGex master?",
@@ -23,7 +23,7 @@
     {
       "question": "Who is that Java hater ?",
       "image": "georgikunchev.jpg",
-      "correct_answer": "Grafa"
+      "correct_answer": "Georgi Kunchev"
     },
     {
       "question": "Who is that Roman emperor ?",
