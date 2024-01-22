@@ -1,10 +1,13 @@
 import pygame
 from MainMenu import MainMenu, PreGameScreen
 from Round import FirstRound
+from User import User
 
 WHITE = (255, 255, 255)
 
-main_menu=MainMenu()
+user = User()
+
+main_menu=MainMenu(user)
 
 pygame.init()
 font = pygame.font.Font(None, 36)
