@@ -154,11 +154,12 @@ class ImageRound:
     def is_correct(answer,correct_answers):
         is_correct_answer=False
         if isinstance(correct_answers,list):
-            for correct_answer in correct_answer:
+            for correct_answer in correct_answers:
                 is_correct_answer = answer.lower() == correct_answer.lower()
-            return is_correct_answer
-        else:
-            return answer.lower() == correct_answers.lower()
+                if is_correct_answer:
+                    return True
+            return False
+        return answer.lower() == correct_answers.lower()
 
     def render(self,screen):
         screen.fill(WHITE)
@@ -254,19 +255,6 @@ class AudioRound:
             audio = pydub.AudioSegment.from_file(audio_path)
 
             self.audio_data.append( {'question' : entry['question'],'audio':audio , 'correct_answer': answer})
-
-    def play_audio(self, audio, duration_seconds):
-        pydub.mixer.init()
-        sound = pydub.mixer.Sound(audio.raw_data)
-        clock = pydub.time.Clock()
-
-        # Play for the specified duration
-        sound.play()
-        clock.tick()
-        while clock.get_time() < duration_seconds * 1000:  # Convert duration to milliseconds
-            pass
-
-        sound.stop()
 
     def render(self,screen):
         screen.fill(WHITE)

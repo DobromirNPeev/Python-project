@@ -13,12 +13,12 @@
     {
       "question": "Who is that historcial figure ?",
       "image": "napoleon.jpg",
-      "correct_answer": "Napoleon"
+      "correct_answer": ["Napoleon","Napoleon Bonaparte"]
     },
     {
       "question": "Who is that bulgarian singer ?",
       "image": "grafa.jpg",
-      "correct_answer": "Grafa"
+      "correct_answer": ["Grafa","Vladimir Ampov"]
     },
     {
       "question": "Who is that Java hater ?",
@@ -28,7 +28,7 @@
     {
       "question": "Who is that Roman emperor ?",
       "image": "ceaser.jpg",
-      "correct_answer": "Ceaser"
+      "correct_answer": ["Ceaser","Julius Ceaser"]
     },
     {
       "question": "Who is that bulgarian singer/politician ?",
@@ -48,7 +48,7 @@
     {
       "question": "Who is that wrestler/actor ?",
       "image": "therock.jpg",
-      "correct_answer": "The Rock"
+      "correct_answer": ["The Rock","dwayne johnson"]
     }    
   ]
 }

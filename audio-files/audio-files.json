@@ -8,7 +8,7 @@
     {
       "file_path": "pesen2.mp3",
       "question": "Who is/are performing that song?",
-      "answer": "Alisiq i emrah"
+      "answer": ["Alisiq i emrah","alisia i emrah","Emrah i alisiq","Emrah i alisia"]
     }
   ]
 }
