@@ -39,7 +39,7 @@ class FirstRound(Round):
         for i in range(0,10):
             random_question=self.choose_random_question(self.loaded_data)
             
-            question_text = Button(self.midPoint[0],self.midPoint[1]-50,2000,50,random_question['question'],lambda: None)
+            question_text = Button(self.midPoint[0],self.midPoint[1]-50,1000,50,random_question['question'],lambda: None)
             choices_text = ''.join([f"{j + 1}. {choice}" for j, choice in enumerate(random_question['choices'])])
             text = f"{question_text}\n\n{choices_text}"
 
