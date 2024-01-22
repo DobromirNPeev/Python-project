@@ -38,7 +38,6 @@ class FirstRound(Round):
         pygame.display.set_caption("Pygame Screen Example")
         self.screen=pygame.display.set_mode((self.screen_width, self.screen_height))
         self.midPoint=getMidPoint(0,0,800,600)
-        self.copy_questions=copy.deepcopy(self.loaded_data)
         self.user = user
         midPoint=getMidPoint(0,0,800,600)
         self.continue_button = Button(midPoint[0],midPoint[1]-50,200,50,"Continue",lambda : self.generate_second_round())
@@ -170,7 +169,7 @@ class ImageRound:
                 question_text = Button(self.screen_width // 2-222, self.screen_height // 2,500,50,random_question['question'],lambda: None)
                 type_area = Button(self.screen_width // 2-115, self.screen_height // 2+84,250,35,"",lambda: None)
                 clock = pygame.time.Clock()
-                timer_duration = 15000 
+                timer_duration = 1000 
                 elapsed_time = 0 
                 font = pygame.font.Font(None, 36)
                 found_answer = None
@@ -217,7 +216,7 @@ class ImageRound:
                     pygame.display.flip()
 
                     if found_answer is True:
-                        self.user.correct_answer(1)
+                        self.user.correct_answer(2)
                         print(self.user.points)
                         break
         else:
@@ -317,11 +316,10 @@ class AudioRound:
                     pygame.display.flip()
 
                     if found_answer is True:
-                        self.user.correct_answer(1)
+                        self.user.correct_answer(3)
                         print(self.user.points)
                         break
                 sound.stop()
         else:
             self.screen.blit(self.background, (0, 0))
             self.continue_button.draw(self.screen)
-    
