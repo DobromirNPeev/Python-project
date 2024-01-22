@@ -1,55 +1,28 @@
-import pygame
-import sys
+import os
+import json
+from pydub import AudioSegment
 
-# Initialize Pygame
-pygame.init()
+class YourClass:
+    def __init__(self):
+        self.audio_data = []
 
-# Set up display
-width, height = 800, 600
-screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption('Typing Window with Pygame')
+    def load_audio_from_folder(self, audio_folder, json_file):
+        with open(json_file, 'r') as file:
+            data = json.load(file)
 
-# Set up fonts
-font = pygame.font.Font(None, 36)
+        self.audio_data = []
+        for entry in data['audio_files']:
+            question = entry['question']
+            audio_filename = entry['file_path']
+            answer = entry['answer']
 
-# Initialize variables
-text = ""
-text_color = (0, 0, 0)
-input_active = False
+            audio_path = os.path.join(audio_folder, audio_filename)
+            audio = AudioSegment.from_file(audio_path,format='mp3')
 
-# Main game loop
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RETURN:
-                # Handle Enter key (you can add more logic here)
-                print("Typed:", text)
-                text = ""
-            elif event.key == pygame.K_BACKSPACE:
-                # Handle Backspace key
-                text = text[:-1]
-            elif event.key == pygame.K_ESCAPE:
-                # Handle Escape key to toggle input focus
-                input_active = not input_active
-            else:
-                # Handle other key presses
-                text += event.unicode
+            self.audio_data.append({'question': question,  'correct_answer': answer})
 
-    # Clear the screen
-    screen.fill((255, 255, 255))
+# Example usage
+your_instance = YourClass()
+your_instance.load_audio_from_folder("D:/Python project/audio-files","D:/Python project/audio-files/audio-files.json")
 
-    # Display the text
-    text_surface = font.render(text, True, text_color)
-    text_rect = text_surface.get_rect(center=(width // 2, height // 2))
-    screen.blit(text_surface, text_rect)
-
-    # Draw a cursor if input is active
-    if input_active and pygame.time.get_ticks() % 1000 < 500:
-        cursor_rect = pygame.Rect(text_rect.right + 5, text_rect.top, 2, text_rect.height)
-        pygame.draw.rect(screen, text_color, cursor_rect)
-
-    # Update the display
-    pygame.display.flip()
+# Accessing the loaded audio dat

@@ -4,6 +4,7 @@ import json
 import random
 import copy
 import os
+import pydub
 
 WHITE = (255, 255, 255)
 
@@ -124,12 +125,16 @@ class ImageRound:
         self.background = pygame.transform.scale(self.background, (self.screen_width, self.screen_height))
         pygame.display.set_caption("Pygame Screen Example")
         self.screen=pygame.display.set_mode((self.screen_width, self.screen_height))
-        midPoint=getMidPoint(0,0,800,600)
+        self.midPoint=getMidPoint(0,0,800,600)
        # self.copy_questions=copy.deepcopy(self.image_data)
-        self.continue_button = Button(midPoint[0],midPoint[1]-50,200,50,"Continue",lambda : self.generate_second_round())
+        self.continue_button = Button(self.midPoint[0],self.midPoint[1]-50,200,50,"Continue",lambda : self.generate_thrid_round())
+        self.buttons=[self.continue_button]
         self.user = user
         self.generated_questions=0
     
+    def generate_thrid_round(self):
+        return AudioRound(self.user)
+
     def load_images_from_folder(self,image_folder,json_file):
         with open(json_file, 'r') as file:
             data = json.load(file)
@@ -209,15 +214,15 @@ class ImageRound:
                         self.user.correct_answer(1)
                         print(self.user.points)
                         break
-            else:
-                self.screen.blit(self.background, (0, 0))
-                self.continue_button.draw(self.screen)
+        else:
+            self.screen.blit(self.background, (0, 0))
+            self.continue_button.draw(self.screen)
 
 class AudioRound:
 
     def __init__(self,user):
         self.screen_width, self.screen_height = 1000, 600
-        self.load_audio_from_folder("D:/Python project/audio-files","D:/Python project/images/questionsforimages.json")
+        self.load_audio_from_folder("D:/Python project/audio-files","D:/Python project/audio-files/audio-files.json")
         self.font = pygame.font.Font(None, 36)
         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
         self.background = pygame.image.load("D:/Python project/logo_www-k9vmwvd2.png")
@@ -230,17 +235,100 @@ class AudioRound:
         self.user = user
         self.generated_questions=0
 
-    def load_audio_from_folder(self,image_folder,json_file):
+    def load_audio_from_folder(self,audio_folder,json_file):
         with open(json_file, 'r') as file:
             data = json.load(file)
 
-        self.image_data = []
-        for entry in data['questions']:
+        self.audio_data = []
+        for entry in data['audio_files']:
             question = entry['question']
-            image_filename = entry['image']
-            correct_answer = entry['correct_answer']
+            audio_filename = entry['file_path']
+            answer = entry['answer']
 
-            img_path = os.path.join(image_folder, image_filename)
-            img = pygame.image.load(img_path)
+            audio_path = os.path.join(audio_folder, audio_filename)
+            audio = pydub.AudioSegment.from_file(audio_path)
 
-            self.image_data.append( {'question' : entry['question'], 'image': img, 'rect': img.get_rect(center=(self.screen_width // 2, self.screen_height // 2-150)), 'correct_answer': correct_answer})
+            self.audio_data.append( {'question' : entry['question'],'audio':audio , 'correct_answer': answer})
+
+    def play_audio(self, audio, duration_seconds):
+        pydub.mixer.init()
+        sound = pydub.mixer.Sound(audio.raw_data)
+        clock = pydub.time.Clock()
+
+        # Play for the specified duration
+        sound.play()
+        clock.tick()
+        while clock.get_time() < duration_seconds * 1000:  # Convert duration to milliseconds
+            pass
+
+        sound.stop()
+
+    def render(self,screen):
+        screen.fill(WHITE)
+        if self.generated_questions<9:
+            for self.generated_questions in range(0,10):
+                random_question=Round.choose_random_question(self.audio_data)
+                correct_answer = random_question["correct_answer"]
+                question_text = Button(self.screen_width // 2-222, self.screen_height // 2,500,50,random_question['question'],lambda: None)
+                type_area = Button(self.screen_width // 2-115, self.screen_height // 2+84,250,35,"",lambda: None)
+                clock = pygame.time.Clock()
+                timer_duration = 20000 
+                elapsed_time = 0 
+                font = pygame.font.Font(None, 36)
+                found_answer = None
+                text=''
+                audio=random_question['audio']
+                normalized_audio = audio.normalize()
+                print(self.generated_questions)
+                pygame.mixer.init()
+                sound = pygame.mixer.Sound((normalized_audio[10000:]-20).raw_data)
+                sound.play()
+                while True:
+                    events = pygame.event.get()
+                    for event in events:
+                        if event.type == pygame.QUIT:
+                            pygame.quit()
+                        elif event.type == pygame.KEYDOWN:
+                            if event.key == pygame.K_RETURN:
+                                # Handle Enter key (you can add more logic here)
+                                found_answer=ImageRound.is_correct(text,correct_answer)
+                                text = ""
+                            elif event.key == pygame.K_BACKSPACE:
+                                # Handle Backspace key
+                                text = text[:-1]
+                            else:
+                                # Handle other key presses
+                                text += event.unicode
+                        
+                    dt = clock.tick(60)  # Adjust the argument based on your desired frame rate
+                    elapsed_time += dt
+
+                    # Calculate remaining time
+                    remaining_time = max(timer_duration - elapsed_time, 0)
+
+                    # Convert remaining time to seconds
+                    remaining_seconds = remaining_time // 1000
+                    if remaining_seconds<=0:
+                        break
+                    self.screen.blit(self.background, (0, 0))
+                    question_text.draw(self.screen)
+                    type_area.draw(self.screen)
+                    timer_text = font.render(f"Time remaining: {remaining_seconds} seconds", True, WHITE)
+                    timer_rect = timer_text.get_rect(center=(self.screen_width // 2, self.screen_height // 2+200))
+                    self.screen.blit(timer_text, timer_rect)
+                    text_surface = font.render(text, True, (0,0,0))
+                    text_rect = text_surface.get_rect(center=(self.screen_width // 2, self.screen_height // 2+100))
+                    screen.blit(text_surface, text_rect)
+                    cursor_rect = pygame.Rect(text_rect.right + 5, text_rect.top, 2, text_rect.height)
+                    pygame.draw.rect(screen, (0,0,0), cursor_rect)
+                    pygame.display.flip()
+
+                    if found_answer is True:
+                        self.user.correct_answer(1)
+                        print(self.user.points)
+                        break
+                sound.stop()
+        else:
+            self.screen.blit(self.background, (0, 0))
+            self.continue_button.draw(self.screen)
+    
