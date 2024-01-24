@@ -1,6 +1,6 @@
 import pygame
 from MainMenu import MainMenu, PreGameScreen
-from Round import FirstRound,ImageRound,AudioRound
+from Round import FirstRound,ImageRound,AudioRound,OpenQuestions
 from User import User
 
 WHITE = (255, 255, 255)
@@ -23,13 +23,13 @@ while True:
             if event.type == pygame.QUIT:
                 pygame.quit()
             next_screen=button.handle_event(event)
-            if isinstance(next_screen,PreGameScreen) or isinstance(next_screen,MainMenu) or isinstance(next_screen,FirstRound) or isinstance(next_screen,ImageRound) or isinstance(next_screen,AudioRound):
+            if isinstance(next_screen,PreGameScreen) or isinstance(next_screen,MainMenu) or isinstance(next_screen,FirstRound) or isinstance(next_screen,ImageRound) or isinstance(next_screen,AudioRound) or isinstance(next_screen,OpenQuestions):
                 break
-        if isinstance(next_screen,PreGameScreen) or isinstance(next_screen,MainMenu) or isinstance(next_screen,FirstRound) or isinstance(next_screen,ImageRound) or isinstance(next_screen,AudioRound):
+        if isinstance(next_screen,PreGameScreen) or isinstance(next_screen,MainMenu) or isinstance(next_screen,FirstRound) or isinstance(next_screen,ImageRound) or isinstance(next_screen,AudioRound) or isinstance(next_screen,OpenQuestions):
                 break
         
     # If a new screen is returned, switch to that screen
-    if isinstance(next_screen,PreGameScreen) or isinstance(next_screen,MainMenu) or isinstance(next_screen,FirstRound) or isinstance(next_screen,ImageRound) or isinstance(next_screen,AudioRound):
+    if isinstance(next_screen,PreGameScreen) or isinstance(next_screen,MainMenu) or isinstance(next_screen,FirstRound) or isinstance(next_screen,ImageRound) or isinstance(next_screen,AudioRound) or isinstance(next_screen,OpenQuestions):
         current_screen = next_screen
 
     # Draw buttons
