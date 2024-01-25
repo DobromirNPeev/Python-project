@@ -8,6 +8,7 @@ WHITE = (255, 255, 255)
 def getMidPoint(x,y,x1,y1):
         return [(x + x1) / 2.0,(y + y1) / 2.0]
 
+
 class MainMenu:
     def __init__(self,user):
         pygame.init()
@@ -21,7 +22,7 @@ class MainMenu:
         self.singleplayer = Button(midPoint[0],midPoint[1]-50,200,50,"Singleplayer",lambda : self.generate_screen())
         multiplayer = Button(midPoint[0],midPoint[1]+25,200,50,"Multiplayer",lambda : print("OK1"))
         add_quesiton = Button(midPoint[0],midPoint[1]+100,200,50,"Add question",lambda : print("OK2"))
-        exit = Button(midPoint[0],midPoint[1]+175,200,50,"Exit",lambda : pygame.quit())
+        exit = Button(midPoint[0],midPoint[1]+175,200,50,"Exit",lambda: None)
         self.buttons=[self.singleplayer,multiplayer,add_quesiton,exit]
         self.user = user
 
