@@ -14,7 +14,7 @@ def open_image():
         if file_path:
             try:
                 image = pygame.image.load(file_path)
-                return image
+                return image,file_path
             except pygame.error:
                 print("Unable to load image:", file_path)
                 return None
@@ -29,15 +29,15 @@ class AddQuestionScreen:
         self.background = pygame.transform.scale(self.background, (self.screen_width, self.screen_height))
         pygame.display.set_caption("Pygame Screen Example")
         self.first_round_question_button = Button(self.screen_width//2-100,self.screen_height//2-200,200,50,"First Round Question",lambda : self.generate_first_round_question_input())
-        self.first_round_question_button = Button(self.screen_width//2-100,self.screen_height//2-200,200,50,"Second Round Question",lambda : self.generate_second_round_question_input())
+        self.second_round_question_button = Button(self.screen_width//2-100,self.screen_height//2-110,200,50,"Second Round Question",lambda : self.generate_second_round_question_input())
 
        # multiplayer = Button(midPoint[0],midPoint[1]+25,200,50,"Multiplayer",lambda : print("OK1"))
        # add_quesiton = Button(midPoint[0],midPoint[1]+100,200,50,"Add question",lambda : print("OK2"))
        # exit = Button(midPoint[0],midPoint[1]+175,200,50,"Exit",lambda: pygame.quit())
-        self.buttons=[self.first_round_question_button]
+        self.buttons=[self.first_round_question_button,self.second_round_question_button]
 
-    def generate_second_round_question_input():
-        return
+    def generate_second_round_question_input(self):
+        return SecondRoundQuestion()
 
     def generate_first_round_question_input(self):
         return FirstRoundQuestion()
@@ -89,4 +89,45 @@ class FirstRoundQuestion:
             button.draw(screen)
 
 class SecondRoundQuestion:
-    pass
+    def __init__(self):
+        self.screen_width, self.screen_height = 1000, 600
+        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
+        self.background = pygame.image.load("D:/Python project/logo_www-k9vmwvd2.png")
+        self.background = pygame.transform.scale(self.background, (self.screen_width, self.screen_height))
+        self.data={"question": "",
+                   "image": '',
+                    "correct_answer": []}
+        self.open_image_button=Button(self.screen_width//2-420,self.screen_height//2+10,200,50,"Open image",lambda : self.draw_image())
+        self.question_input=Button(self.screen_width//2-210,self.screen_height//2,200,50,"Question input:",lambda : None)
+        self.type_question=TextBox(self.screen_width//2,self.screen_height//2+10,200,50,"question",self.data)
+        self.correct_answer=Button(self.screen_width//2-210,self.screen_height//2+100,200,50,"Correct answer:",lambda : None)
+        self.type_correct_answer=TextBox(self.screen_width//2,self.screen_height//2+110,200,50,"correct_answer",self.data)
+        self.done=Button(self.screen_width//2-100,self.screen_height//2+200,200,50,"Done",lambda : self.save_data())
+        self.buttons=[self.question_input,self.type_question,self.correct_answer,self.type_correct_answer,self.done,self.open_image_button]
+        self.image= None
+        with open("D:/Python project/images/questionsforimages.json", 'r') as file:
+            self.loaded_data = json.load(file)
+            print(self.loaded_data)
+        pygame.display.set_caption("Pygame Screen Example")
+
+    def draw_image(self):
+        self.image,self.image_path=open_image()
+
+    def save_data(self):
+        self.data['image']=self.image_path
+        for element in self.data.values():
+            if not element:
+                return
+        self.loaded_data["questions"].append(self.data)
+        with open("D:/Python project/images/questionsforimages.json", "w") as json_file:
+            json.dump(self.loaded_data, json_file)
+        return AddQuestionScreen()
+
+    def render(self,screen):
+        self.screen.fill(WHITE)
+        screen.blit(self.background, (0, 0))
+        if self.image:
+            screen.blit(self.image,self.image.get_rect(center=(self.screen_width // 2, self.screen_height // 2-150)))
+
+        for button in self.buttons:
+            button.draw(screen)
