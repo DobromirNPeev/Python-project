@@ -1,28 +1,56 @@
+import pygame
 import os
-import json
-from pydub import AudioSegment
+from tkinter import Tk, filedialog
 
-class YourClass:
-    def __init__(self):
-        self.audio_data = []
+# Initialize Pygame
+pygame.init()
 
-    def load_audio_from_folder(self, audio_folder, json_file):
-        with open(json_file, 'r') as file:
-            data = json.load(file)
+# Set the dimensions of the window
+WINDOW_WIDTH = 800
+WINDOW_HEIGHT = 600
+window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+pygame.display.set_caption("Image Viewer")
 
-        self.audio_data = []
-        for entry in data['audio_files']:
-            question = entry['question']
-            audio_filename = entry['file_path']
-            answer = entry['answer']
+# Colors
+WHITE = (255, 255, 255)
 
-            audio_path = os.path.join(audio_folder, audio_filename)
-            audio = AudioSegment.from_file(audio_path,format='mp3')
+def open_image():
+    root = Tk()
+    root.withdraw()  # Hide the main Tkinter window
+    file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.png;*.jpg;*.jpeg")])
+    root.destroy()  # Destroy the Tkinter window after file selection
+    if file_path:
+        try:
+            image = pygame.image.load(file_path)
+            return image
+        except pygame.error:
+            print("Unable to load image:", file_path)
+            return None
 
-            self.audio_data.append({'question': question,  'correct_answer': answer})
+def main():
+    image = open_image()
+    if not image:
+        return
+    
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
+        
+        # Clear the screen
+        window.fill(WHITE)
+        
+        # Draw the image
+        window.blit(image, (0, 0))
 
-# Example usage
-your_instance = YourClass()
-your_instance.load_audio_from_folder("D:/Python project/audio-files","D:/Python project/audio-files/audio-files.json")
+        # Update the display
+        pygame.display.update()
 
-# Accessing the loaded audio dat
+    pygame.quit()
+
+if __name__ == "__main__":
+    main()

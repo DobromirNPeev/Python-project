@@ -2,6 +2,7 @@ import pygame
 from MainMenu import MainMenu, PreGameScreen
 from Round import FirstRound,ImageRound,AudioRound,OpenQuestions,HardQuestions
 from User import User
+from AddQuestions import AddQuestionScreen,FirstRoundQuestion
 
 
 
@@ -28,17 +29,21 @@ def main():
                     pygame.quit()
                     return
                 next_screen=button.handle_event(event)
-                if isinstance(next_screen,PreGameScreen) or isinstance(next_screen,MainMenu) or isinstance(next_screen,FirstRound) or isinstance(next_screen,ImageRound) or isinstance(next_screen,AudioRound) or isinstance(next_screen,OpenQuestions) or isinstance(next_screen,ImageRound) or isinstance(next_screen,AudioRound) or isinstance(next_screen,HardQuestions):
+                if isinstance(next_screen,PreGameScreen) or isinstance(next_screen,MainMenu) or isinstance(next_screen,FirstRound) or isinstance(next_screen,ImageRound) or isinstance(next_screen,AudioRound) or isinstance(next_screen,OpenQuestions) or isinstance(next_screen,ImageRound) or isinstance(next_screen,AudioRound) or isinstance(next_screen,HardQuestions) or isinstance(next_screen,AddQuestionScreen) or isinstance(next_screen,FirstRoundQuestion):
                     break
-            if isinstance(next_screen,PreGameScreen) or isinstance(next_screen,MainMenu) or isinstance(next_screen,FirstRound) or isinstance(next_screen,ImageRound) or isinstance(next_screen,AudioRound) or isinstance(next_screen,OpenQuestions) or isinstance(next_screen,ImageRound) or isinstance(next_screen,AudioRound) or isinstance(next_screen,HardQuestions):
+            if isinstance(next_screen,PreGameScreen) or isinstance(next_screen,MainMenu) or isinstance(next_screen,FirstRound) or isinstance(next_screen,ImageRound) or isinstance(next_screen,AudioRound) or isinstance(next_screen,OpenQuestions) or isinstance(next_screen,ImageRound) or isinstance(next_screen,AudioRound) or isinstance(next_screen,HardQuestions) or isinstance(next_screen,AddQuestionScreen) or isinstance(next_screen,FirstRoundQuestion):
                     break
             
+        if not pygame.get_init():
+            return
         # If a new screen is returned, switch to that screen
-        if isinstance(next_screen,PreGameScreen) or isinstance(next_screen,MainMenu) or isinstance(next_screen,FirstRound) or isinstance(next_screen,ImageRound) or isinstance(next_screen,AudioRound) or isinstance(next_screen,OpenQuestions) or isinstance(next_screen,AudioRound) or isinstance(next_screen,HardQuestions):
+        if isinstance(next_screen,PreGameScreen) or isinstance(next_screen,MainMenu) or isinstance(next_screen,FirstRound) or isinstance(next_screen,ImageRound) or isinstance(next_screen,AudioRound) or isinstance(next_screen,OpenQuestions) or isinstance(next_screen,AudioRound) or isinstance(next_screen,HardQuestions) or isinstance(next_screen,AddQuestionScreen) or isinstance(next_screen,FirstRoundQuestion):
             current_screen = next_screen
 
         # Draw buttons
         current_screen.render(current_screen.screen)
+        if not pygame.get_init():
+            return
         pygame.display.flip()
             # Pass events to buttons
         

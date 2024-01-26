@@ -86,7 +86,9 @@ class FirstRound(Round):
                                     if found_answer is not None:
                                         break
                         if click_skip:
-                            break  
+                            break 
+                    if not pygame.get_init():
+                        return 
                     if click_skip:
                         break
                     dt = clock.tick(60)  # Adjust the argument based on your desired frame rate
@@ -202,6 +204,8 @@ class ImageRound:
                             else:
                                 # Handle other key presses
                                 text += event.unicode
+                    if not pygame.get_init():
+                        return
                     if click_skip:
                         break
                     dt = clock.tick(60)  # Adjust the argument based on your desired frame rate
@@ -250,13 +254,13 @@ class AudioRound:
         self.screen=pygame.display.set_mode((self.screen_width, self.screen_height))
         midPoint=getMidPoint(0,0,800,600)
        # self.copy_questions=copy.deepcopy(self.image_data)
-        self.continue_button = Button(midPoint[0],midPoint[1]-50,200,50,"Continue",lambda : self.generate_fifth_round())
+        self.continue_button = Button(midPoint[0],midPoint[1]-50,200,50,"Continue",lambda : self.generate_fourth_round())
         self.buttons=[self.continue_button]
         self.user = user
         self.generated_questions=0
 
-    def generate_fifth_round(self):
-        return HardQuestions(self.user)
+    def generate_fourth_round(self):
+        return OpenQuestions(self.user)
 
     def load_audio_from_folder(self,audio_folder,json_file):
         with open(json_file, 'r') as file:
@@ -290,10 +294,9 @@ class AudioRound:
                 click_skip = False
                 text=''
                 audio=random_question['audio']
-                normalized_audio = audio.normalize()
                 print(self.generated_questions)
                 pygame.mixer.init()
-                sound = pygame.mixer.Sound((normalized_audio[20000:]-40).raw_data)
+                sound = pygame.mixer.Sound((audio-20).raw_data)
                 sound.play()
                 while True:
                     events = pygame.event.get()
@@ -315,6 +318,8 @@ class AudioRound:
                             else:
                                 # Handle other key presses
                                 text += event.unicode
+                    if not pygame.get_init():
+                        return
                     if click_skip:
                         break
                     dt = clock.tick(60)  # Adjust the argument based on your desired frame rate
@@ -364,7 +369,7 @@ class OpenQuestions(Round):
         self.midPoint=getMidPoint(0,0,800,600)
         self.user = user
         midPoint=getMidPoint(0,0,800,600)
-        self.continue_button = Button(midPoint[0],midPoint[1]-50,200,50,"Continue",lambda : None)
+        self.continue_button = Button(midPoint[0],midPoint[1]-50,200,50,"Continue",lambda : self.generate_fifth_round())
         self.buttons=[self.continue_button]
         self.generated_questions=0
     
@@ -419,7 +424,8 @@ class OpenQuestions(Round):
                             else:
                                 # Handle other key presses
                                 text += event.unicode
-
+                    if not pygame.get_init():
+                        return
                     if click_skip:
                         break
                     dt = clock.tick(60)  # Adjust the argument based on your desired frame rate
@@ -521,7 +527,8 @@ class HardQuestions(Round):
                             else:
                                 # Handle other key presses
                                 text += event.unicode
-
+                    if not pygame.get_init():
+                        return
                     if click_skip:
                         break
                     dt = clock.tick(60)  # Adjust the argument based on your desired frame rate
