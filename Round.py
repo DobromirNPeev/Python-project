@@ -2,9 +2,8 @@ from Button import Button
 import pygame
 import json
 import random
-import copy
-import os
 import pydub
+import os
 
 WHITE = (255, 255, 255)
 
