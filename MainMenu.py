@@ -3,6 +3,7 @@ from Button import Button
 from Round import FirstRound
 from User import User
 from AddQuestions import AddQuestionScreen
+from Multiplayer import PreScreenMutliplayer
 
 WHITE = (255, 255, 255)
 
@@ -12,7 +13,6 @@ def getMidPoint(x,y,x1,y1):
 
 class MainMenu:
     def __init__(self,user):
-        pygame.init()
         screen_width, screen_height = 1000, 600
         self.screen = pygame.display.set_mode((screen_width, screen_height))
         self.background = pygame.image.load("D:/Python project/logo_www-k9vmwvd2.png")
@@ -20,7 +20,7 @@ class MainMenu:
         pygame.display.set_caption("Pygame Screen Example")
         midPoint=getMidPoint(0,0,800,600)
         self.singleplayer = Button(midPoint[0],midPoint[1]-50,200,50,"Singleplayer",lambda : self.generate_screen())
-        multiplayer = Button(midPoint[0],midPoint[1]+25,200,50,"Multiplayer",lambda : None)
+        multiplayer = Button(midPoint[0],midPoint[1]+25,200,50,"Multiplayer",lambda : PreScreenMutliplayer())
         add_quesiton = Button(midPoint[0],midPoint[1]+100,200,50,"Add question",lambda : self.generated_add_question_screen())
         exit = Button(midPoint[0],midPoint[1]+175,200,50,"Exit",lambda: pygame.quit())
         self.buttons=[self.singleplayer,multiplayer,add_quesiton,exit]
@@ -54,7 +54,6 @@ class PreGameScreen:
         self.buttons=[self.start,self.go_back]
         self.user = user
     
-
     def generate_menu(self):
         return MainMenu(self.user)
 

@@ -4,7 +4,7 @@ import json
 import random
 import pydub
 import os
-from textbox import TextBox
+from textbox import TextBoxForQuestions
 
 WHITE = (255, 255, 255)
 
@@ -203,7 +203,7 @@ class ImageRound:
                         self.offset_upper_half-=self.answers[-1].rect.height+15
                     self.answers.append(Button(self.screen_width//2+185,self.screen_height//2-self.offset_upper_half,300,50,f"{self.generated_questions+1}) {', '.join([str(element) for element in correct_answer])}",lambda : None))
                 question_text = Button(self.screen_width // 2-222, self.screen_height // 2,500,50,random_question['question'],lambda: None)
-                type_area = TextBox(self.screen_width // 2-115, self.screen_height // 2+84,250,35,self.is_correct,correct_answer)
+                type_area = TextBoxForQuestions(self.screen_width // 2-115, self.screen_height // 2+84,250,35,self.is_correct,correct_answer)
                 skip_button= Button(self.screen_width//2-65,self.midPoint[1]+125,150,50,f"Skip",lambda: None)
                 clock = pygame.time.Clock()
                 timer_duration = 8000 
@@ -315,7 +315,7 @@ class AudioRound:
                         self.offset_upper_half-=self.answers[-1].rect.height+15
                     self.answers.append(Button(self.screen_width//2+185,self.screen_height//2-self.offset_upper_half,300,50,f"{self.generated_questions+1}) {', '.join([str(element) for element in correct_answer])}",lambda : None))
                 question_text = Button(self.screen_width // 2-222, self.screen_height // 2,500,50,random_question['question'],lambda: None)
-                type_area = TextBox(self.screen_width // 2-115, self.screen_height // 2+84,250,35,ImageRound.is_correct,correct_answer)
+                type_area = TextBoxForQuestions(self.screen_width // 2-115, self.screen_height // 2+84,250,35,ImageRound.is_correct,correct_answer)
                 skip_button= Button(self.screen_width//2-65,self.screen_height//2+125,150,50,f"Skip",lambda: None)
                 clock = pygame.time.Clock()
                 timer_duration = 8000 
@@ -425,7 +425,7 @@ class OpenQuestions(Round):
                         self.offset_upper_half-=self.answers[-1].rect.height+15
                     self.answers.append(Button(self.screen_width//2+185,self.screen_height//2-self.offset_upper_half,300,50,f"{self.generated_questions+1}) {', '.join([str(element) for element in correct_answers])}",lambda : None))
                 question_text = Button(self.screen_width // 2-230, self.screen_height // 2-100,500,50,random_question['question'],lambda: None)
-                type_area = TextBox(self.screen_width // 2-115, self.screen_height // 2+84,250,35,ImageRound.is_correct,correct_answers)
+                type_area = TextBoxForQuestions(self.screen_width // 2-115, self.screen_height // 2+84,250,35,ImageRound.is_correct,correct_answers)
                 skip_button= Button(self.screen_width//2-65,self.screen_height//2+125,150,50,f"Skip",lambda: None)
                 clock = pygame.time.Clock()
                 timer_duration = 20000 
@@ -498,7 +498,7 @@ class HardQuestions(Round):
         self.midPoint=getMidPoint(0,0,800,600)
         self.user = user
         midPoint=getMidPoint(0,0,800,600)
-        self.continue_button = Button(self.screen_width//2-420,self.screen_height//2-60,200,50,"Continue",lambda : None)
+        self.continue_button = Button(self.screen_width//2-420,self.screen_height//2-60,200,50,"Go to main menu",lambda : None)
         self.buttons=[self.continue_button]
         self.offset=260
         self.offset_upper_half=260
@@ -527,7 +527,7 @@ class HardQuestions(Round):
                         self.offset-=self.answers[-1].rect.height+15
                     self.answers.append(Button(self.screen_width//2-175,self.screen_height//2-self.offset,300,50,f"{self.generated_questions+1}) {', '.join([str(element) for element in correct_answers])}",lambda : None))
                 question_text = Button(self.screen_width // 2-230, self.screen_height // 2-175,500,50,random_question['question'],lambda: None)
-                type_area = TextBox(self.screen_width // 2-115, self.screen_height // 2+84,250,35,ImageRound.is_correct,correct_answers)
+                type_area = TextBoxForQuestions(self.screen_width // 2-115, self.screen_height // 2+84,250,35,ImageRound.is_correct,correct_answers)
                 skip_button= Button(self.screen_width//2-65,self.screen_height//2+125,150,50,f"Skip",lambda: None)
                 clock = pygame.time.Clock()
                 timer_duration = 20000 

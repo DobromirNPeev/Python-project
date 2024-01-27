@@ -47,7 +47,7 @@ class TextBoxForFiles:
         screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
         pygame.draw.rect(screen, self.color, self.rect, 2)
 
-class TextBox:
+class TextBoxForQuestions:
     def __init__(self, x, y, width, height,action,correct_answer, text=''):
         self.rect = pygame.Rect(x, y, width, height)
         self.color = WHITE
@@ -86,6 +86,46 @@ class TextBox:
 
     def draw(self, screen):
         # Draw the filled rectangle (background) just behind the text box
+        pygame.draw.rect(screen, (192, 192, 192), self.rect)
+        # Draw the text on top
+        screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
+        pygame.draw.rect(screen, self.color, self.rect, 2)
+
+class TextBoxForMultiplayer:
+    def __init__(self, x, y, width, height,user, text=''):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.color = BLACK
+        self.text = text
+        self.user=user
+        self.font = pygame.font.Font(None, 32)
+        self.txt_surface = self.font.render(text, True, BLACK)
+        self.active = False
+
+    def handle_event(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            # If the user clicks on the text box, it becomes active
+            if self.rect.collidepoint(event.pos):
+                self.active = not self.active
+            else:
+                self.active = False
+            self.color = WHITE if self.active else BLACK
+        if event.type == pygame.KEYDOWN:
+            if self.active:
+                if event.key == pygame.K_RETURN:
+                    print(self.text)
+                    self.user.name=self.text
+                    self.text = ''
+                elif event.key == pygame.K_BACKSPACE:
+                    self.text = self.text[:-1]
+                else:
+                    self.text += event.unicode
+                self.txt_surface = self.font.render(self.text, True, BLACK)
+
+    def update(self):
+        width = max(200, self.txt_surface.get_width()+10)
+        self.rect.w = width
+
+    def draw(self, screen):
         pygame.draw.rect(screen, (192, 192, 192), self.rect)
         # Draw the text on top
         screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
