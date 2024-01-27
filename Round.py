@@ -4,6 +4,7 @@ import json
 import random
 import pydub
 import os
+from textbox import TextBox
 
 WHITE = (255, 255, 255)
 
@@ -38,8 +39,11 @@ class FirstRound(Round):
         self.screen=pygame.display.set_mode((self.screen_width, self.screen_height))
         self.midPoint=getMidPoint(0,0,800,600)
         self.user = user
-        midPoint=getMidPoint(0,0,800,600)
-        self.continue_button = Button(midPoint[0],midPoint[1]-50,200,50,"Continue",lambda : self.generate_second_round())
+        self.continue_button = Button(self.screen_width//2-420,self.screen_height//2-60,200,50,"Continue",lambda : self.generate_second_round())
+        self.offset=260
+        self.offset_upper_half=260
+        self.answers=[]
+        self.user_score = None
         self.buttons=[self.continue_button]
         self.generated_questions=0
 
@@ -52,9 +56,17 @@ class FirstRound(Round):
 
     def render(self,screen):
         screen.fill(WHITE)
-        if self.generated_questions<9:
+        if self.generated_questions<10:
                 random_question=self.choose_random_question(self.loaded_data)
-                correct_answer = random_question["correct_answer"]
+                correct_answer = random_question["correct_answer"]   
+                if self.generated_questions<5:
+                    if len(self.answers)%5!=0:
+                        self.offset-=self.answers[-1].rect.height+15
+                    self.answers.append(Button(self.screen_width//2-175,self.screen_height//2-self.offset,200,50,f"{self.generated_questions+1}) {correct_answer}",lambda : None))
+                else:
+                    if len(self.answers)%5!=0:
+                        self.offset_upper_half-=self.answers[-1].rect.height+15
+                    self.answers.append(Button(self.screen_width//2+180,self.screen_height//2-self.offset_upper_half,200,50,f"{self.generated_questions+1}) {correct_answer}",lambda : None))
                 question_text = Button(self.midPoint[0]-250,self.midPoint[1]-150,750,50,random_question['question'],lambda: None)
                 choices_A = Button(self.midPoint[0]-350,self.midPoint[1]-75,450,50,f"A) {random_question['choices'][0]}",lambda: self.is_correct(random_question['choices'][0],correct_answer))
                 choices_B = Button(self.midPoint[0]+125,self.midPoint[1]-75,450,50,f"B) {random_question['choices'][1]}",lambda: self.is_correct(random_question['choices'][1],correct_answer))
@@ -116,8 +128,13 @@ class FirstRound(Round):
                     elif found_answer is False:
                         break
         else:
+            if not self.user_score:
+                self.user_score =  Button(self.screen_width//2-420,self.screen_height//2-120,200,50,f"Your score: {self.user.points}",lambda : None)
             self.screen.blit(self.background, (0, 0))
             self.continue_button.draw(self.screen)
+            self.user_score.draw(self.screen)
+            for answer in self.answers:
+                answer.draw(self.screen)
 
 
 class ImageRound:
@@ -133,8 +150,12 @@ class ImageRound:
         self.screen=pygame.display.set_mode((self.screen_width, self.screen_height))
         self.midPoint=getMidPoint(0,0,800,600)
        # self.copy_questions=copy.deepcopy(self.image_data)
-        self.continue_button = Button(self.midPoint[0],self.midPoint[1]-50,200,50,"Continue",lambda : self.generate_thrid_round())
+        self.continue_button = Button(self.screen_width//2-420,self.screen_height//2-60,200,50,"Continue",lambda : self.generate_thrid_round())
         self.buttons=[self.continue_button]
+        self.offset=260
+        self.offset_upper_half=260
+        self.answers=[]
+        self.user_score = None
         self.user = user
         self.generated_questions=0
     
@@ -173,8 +194,16 @@ class ImageRound:
             for self.generated_questions in range(0,10):
                 random_question=Round.choose_random_question(self.image_data)
                 correct_answer = random_question["correct_answer"]
+                if self.generated_questions<5:
+                    if len(self.answers)%5!=0:
+                        self.offset-=self.answers[-1].rect.height+15
+                    self.answers.append(Button(self.screen_width//2-175,self.screen_height//2-self.offset,300,50,f"{self.generated_questions+1}) {', '.join([str(element) for element in correct_answer])}",lambda : None))
+                else:
+                    if len(self.answers)%5!=0:
+                        self.offset_upper_half-=self.answers[-1].rect.height+15
+                    self.answers.append(Button(self.screen_width//2+185,self.screen_height//2-self.offset_upper_half,300,50,f"{self.generated_questions+1}) {', '.join([str(element) for element in correct_answer])}",lambda : None))
                 question_text = Button(self.screen_width // 2-222, self.screen_height // 2,500,50,random_question['question'],lambda: None)
-                type_area = Button(self.screen_width // 2-115, self.screen_height // 2+84,250,35,"",lambda: None)
+                type_area = TextBox(self.screen_width // 2-115, self.screen_height // 2+84,250,35,self.is_correct,correct_answer)
                 skip_button= Button(self.screen_width//2-65,self.midPoint[1]+125,150,50,f"Skip",lambda: None)
                 clock = pygame.time.Clock()
                 timer_duration = 8000 
@@ -193,16 +222,7 @@ class ImageRound:
                             if skip_button.rect.collidepoint(event.pos):
                                         click_skip=True
                                         break
-                        elif event.type == pygame.KEYDOWN:
-                            if event.key == pygame.K_RETURN:
-                                found_answer=self.is_correct(text,correct_answer)
-                                text = ""
-                            elif event.key == pygame.K_BACKSPACE:
-                                # Handle Backspace key
-                                text = text[:-1]
-                            else:
-                                # Handle other key presses
-                                text += event.unicode
+                        found_answer=type_area.handle_event(event)
                     if not pygame.get_init():
                         return
                     if click_skip:
@@ -224,11 +244,6 @@ class ImageRound:
                     timer_text = font.render(f"Time remaining: {remaining_seconds} seconds", True, WHITE)
                     timer_rect = timer_text.get_rect(center=(self.screen_width // 2, self.screen_height // 2+200))
                     self.screen.blit(timer_text, timer_rect)
-                    text_surface = font.render(text, True, (0,0,0))
-                    text_rect = text_surface.get_rect(center=(self.screen_width // 2, self.screen_height // 2+100))
-                    screen.blit(text_surface, text_rect)
-                    cursor_rect = pygame.Rect(text_rect.right + 5, text_rect.top, 2, text_rect.height)
-                    pygame.draw.rect(screen, (0,0,0), cursor_rect)
                     screen.blit(random_question['image'],random_question['rect'])
                     pygame.display.flip()
 
@@ -237,8 +252,13 @@ class ImageRound:
                         print(self.user.points)
                         break
         else:
+            if not self.user_score:
+                self.user_score =  Button(self.screen_width//2-420,self.screen_height//2-120,200,50,f"Your score: {self.user.points}",lambda : None)
             self.screen.blit(self.background, (0, 0))
             self.continue_button.draw(self.screen)
+            self.user_score.draw(self.screen)
+            for answer in self.answers:
+                answer.draw(self.screen)
 
 class AudioRound:
 
@@ -253,8 +273,12 @@ class AudioRound:
         self.screen=pygame.display.set_mode((self.screen_width, self.screen_height))
         midPoint=getMidPoint(0,0,800,600)
        # self.copy_questions=copy.deepcopy(self.image_data)
-        self.continue_button = Button(midPoint[0],midPoint[1]-50,200,50,"Continue",lambda : self.generate_fourth_round())
+        self.continue_button = Button(self.screen_width//2-420,self.screen_height//2-60,200,50,"Continue",lambda : self.generate_fourth_round())
         self.buttons=[self.continue_button]
+        self.offset=260
+        self.offset_upper_half=260
+        self.answers=[]
+        self.user_score=None
         self.user = user
         self.generated_questions=0
 
@@ -282,8 +306,16 @@ class AudioRound:
             for self.generated_questions in range(0,10):
                 random_question=Round.choose_random_question(self.audio_data)
                 correct_answer = random_question["correct_answer"]
+                if self.generated_questions<5:
+                    if len(self.answers)%5!=0:
+                        self.offset-=self.answers[-1].rect.height+15
+                    self.answers.append(Button(self.screen_width//2-175,self.screen_height//2-self.offset,300,50,f"{self.generated_questions+1}) {', '.join([str(element) for element in correct_answer])}",lambda : None))
+                else:
+                    if len(self.answers)%5!=0:
+                        self.offset_upper_half-=self.answers[-1].rect.height+15
+                    self.answers.append(Button(self.screen_width//2+185,self.screen_height//2-self.offset_upper_half,300,50,f"{self.generated_questions+1}) {', '.join([str(element) for element in correct_answer])}",lambda : None))
                 question_text = Button(self.screen_width // 2-222, self.screen_height // 2,500,50,random_question['question'],lambda: None)
-                type_area = Button(self.screen_width // 2-115, self.screen_height // 2+84,250,35,"",lambda: None)
+                type_area = TextBox(self.screen_width // 2-115, self.screen_height // 2+84,250,35,ImageRound.is_correct,correct_answer)
                 skip_button= Button(self.screen_width//2-65,self.screen_height//2+125,150,50,f"Skip",lambda: None)
                 clock = pygame.time.Clock()
                 timer_duration = 8000 
@@ -306,28 +338,14 @@ class AudioRound:
                             if skip_button.rect.collidepoint(event.pos):
                                         click_skip=True
                                         break
-                        elif event.type == pygame.KEYDOWN:
-                            if event.key == pygame.K_RETURN:
-                                # Handle Enter key (you can add more logic here)
-                                found_answer=ImageRound.is_correct(text,correct_answer)
-                                text = ""
-                            elif event.key == pygame.K_BACKSPACE:
-                                # Handle Backspace key
-                                text = text[:-1]
-                            else:
-                                # Handle other key presses
-                                text += event.unicode
+                        found_answer=type_area.handle_event(event)
                     if not pygame.get_init():
                         return
                     if click_skip:
                         break
-                    dt = clock.tick(60)  # Adjust the argument based on your desired frame rate
+                    dt = clock.tick(60)
                     elapsed_time += dt
-
-                    # Calculate remaining time
                     remaining_time = max(timer_duration - elapsed_time, 0)
-
-                    # Convert remaining time to seconds
                     remaining_seconds = remaining_time // 1000
                     if remaining_seconds<=0:
                         break
@@ -338,11 +356,6 @@ class AudioRound:
                     timer_text = font.render(f"Time remaining: {remaining_seconds} seconds", True, WHITE)
                     timer_rect = timer_text.get_rect(center=(self.screen_width // 2, self.screen_height // 2+200))
                     self.screen.blit(timer_text, timer_rect)
-                    text_surface = font.render(text, True, (0,0,0))
-                    text_rect = text_surface.get_rect(center=(self.screen_width // 2, self.screen_height // 2+100))
-                    screen.blit(text_surface, text_rect)
-                    cursor_rect = pygame.Rect(text_rect.right + 5, text_rect.top, 2, text_rect.height)
-                    pygame.draw.rect(screen, (0,0,0), cursor_rect)
                     pygame.display.flip()
 
                     if found_answer is True:
@@ -351,8 +364,14 @@ class AudioRound:
                         break
                 sound.stop()
         else:
+            if not self.user_score:
+                self.user_score =  Button(self.screen_width//2-420,self.screen_height//2-120,200,50,f"Your score: {self.user.points}",lambda : None)
             self.screen.blit(self.background, (0, 0))
             self.continue_button.draw(self.screen)
+            self.user_score.draw(self.screen)
+            for answer in self.answers:
+                answer.draw(self.screen)
+
 
 class OpenQuestions(Round):
 
@@ -368,8 +387,12 @@ class OpenQuestions(Round):
         self.midPoint=getMidPoint(0,0,800,600)
         self.user = user
         midPoint=getMidPoint(0,0,800,600)
-        self.continue_button = Button(midPoint[0],midPoint[1]-50,200,50,"Continue",lambda : self.generate_fifth_round())
+        self.continue_button = Button(self.screen_width//2-420,self.screen_height//2-60,200,50,"Continue",lambda : self.generate_fifth_round())
         self.buttons=[self.continue_button]
+        self.offset=260
+        self.offset_upper_half=260
+        self.answers=[]
+        self.user_score=None
         self.generated_questions=0
     
     def generate_fifth_round(self):
@@ -388,13 +411,21 @@ class OpenQuestions(Round):
 
     def render(self,screen):
         screen.fill(WHITE)
-        if self.generated_questions<9:
+        if self.generated_questions<10:
                 random_question=Round.choose_random_question(self.loaded_data)
                 correct_answers = random_question["answers"]
                 needed_answers=random_question['needed_answers']
                 correct_answered=0
+                if self.generated_questions<5:
+                    if len(self.answers)%5!=0:
+                        self.offset-=self.answers[-1].rect.height+15
+                    self.answers.append(Button(self.screen_width//2-175,self.screen_height//2-self.offset,300,50,f"{self.generated_questions+1}) {', '.join([str(element) for element in correct_answers])}",lambda : None))
+                else:
+                    if len(self.answers)%5!=0:
+                        self.offset_upper_half-=self.answers[-1].rect.height+15
+                    self.answers.append(Button(self.screen_width//2+185,self.screen_height//2-self.offset_upper_half,300,50,f"{self.generated_questions+1}) {', '.join([str(element) for element in correct_answers])}",lambda : None))
                 question_text = Button(self.screen_width // 2-230, self.screen_height // 2-100,500,50,random_question['question'],lambda: None)
-                type_area = Button(self.screen_width // 2-145, self.screen_height // 2+84,325,35,"",lambda: None)
+                type_area = TextBox(self.screen_width // 2-115, self.screen_height // 2+84,250,35,ImageRound.is_correct,correct_answers)
                 skip_button= Button(self.screen_width//2-65,self.screen_height//2+125,150,50,f"Skip",lambda: None)
                 clock = pygame.time.Clock()
                 timer_duration = 20000 
@@ -414,15 +445,7 @@ class OpenQuestions(Round):
                             if skip_button.rect.collidepoint(event.pos):
                                     click_skip=True
                                     break
-                        elif event.type == pygame.KEYDOWN:
-                            if event.key == pygame.K_RETURN:
-                                found_answer=self.is_correct(text,correct_answers)
-                                text=''
-                            elif event.key == pygame.K_BACKSPACE:
-                                    text = text[:-1]
-                            else:
-                                # Handle other key presses
-                                text += event.unicode
+                        found_answer=type_area.handle_event(event)
                     if not pygame.get_init():
                         return
                     if click_skip:
@@ -439,17 +462,11 @@ class OpenQuestions(Round):
                         break
                     self.screen.blit(self.background, (0, 0))
                     question_text.draw(self.screen)
-                    type_area.text=text
                     type_area.draw(self.screen)
                     skip_button.draw(self.screen)
                     timer_text = font.render(f"Time remaining: {remaining_seconds} seconds", True, WHITE)
                     timer_rect = timer_text.get_rect(center=(self.screen_width // 2, self.screen_height // 2+200))
                     self.screen.blit(timer_text, timer_rect)
-                  #  text_surface = font.render(type_area.text, True, (0,0,0))
-                  #  text_rect = text_surface.get_rect(center=(self.screen_width // 2, self.screen_height // 2+100))
-                   # screen.blit(text_surface, text_rect)
-                   # cursor_rect = pygame.Rect(text_rect.right + 5, text_rect.top, 2, text_rect.height)
-                  #  pygame.draw.rect(screen, (0,0,0), cursor_rect)
                     pygame.display.flip()
 
                     if found_answer is True:
@@ -460,8 +477,13 @@ class OpenQuestions(Round):
                             print(self.user.points)
                             break
         else:
+            if not self.user_score:
+                self.user_score =  Button(self.screen_width//2-420,self.screen_height//2-120,200,50,f"Your score: {self.user.points}",lambda : None)
             self.screen.blit(self.background, (0, 0))
             self.continue_button.draw(self.screen)
+            self.user_score.draw(self.screen)
+            for answer in self.answers:
+                answer.draw(self.screen)
 
 class HardQuestions(Round):
     def __init__(self,user):
@@ -476,8 +498,12 @@ class HardQuestions(Round):
         self.midPoint=getMidPoint(0,0,800,600)
         self.user = user
         midPoint=getMidPoint(0,0,800,600)
-        self.continue_button = Button(midPoint[0],midPoint[1]-50,200,50,"Continue",lambda : None)
+        self.continue_button = Button(self.screen_width//2-420,self.screen_height//2-60,200,50,"Continue",lambda : None)
         self.buttons=[self.continue_button]
+        self.offset=260
+        self.offset_upper_half=260
+        self.user_score=None
+        self.answers=[]
         self.generated_questions=0
     
     @staticmethod
@@ -493,11 +519,15 @@ class HardQuestions(Round):
 
     def render(self,screen):
         screen.fill(WHITE)
-        if self.generated_questions<9:
+        if self.generated_questions<5:
                 random_question=Round.choose_random_question(self.loaded_data)
                 correct_answers = random_question["answer"]
-                question_text = Button(self.screen_width // 2-230, self.screen_height // 2-100,500,50,random_question['question'],lambda: None)
-                type_area = Button(self.screen_width // 2-145, self.screen_height // 2+84,325,35,"",lambda: None)
+                if self.generated_questions<5:
+                    if len(self.answers)%5!=0:
+                        self.offset-=self.answers[-1].rect.height+15
+                    self.answers.append(Button(self.screen_width//2-175,self.screen_height//2-self.offset,300,50,f"{self.generated_questions+1}) {', '.join([str(element) for element in correct_answers])}",lambda : None))
+                question_text = Button(self.screen_width // 2-230, self.screen_height // 2-175,500,50,random_question['question'],lambda: None)
+                type_area = TextBox(self.screen_width // 2-115, self.screen_height // 2+84,250,35,ImageRound.is_correct,correct_answers)
                 skip_button= Button(self.screen_width//2-65,self.screen_height//2+125,150,50,f"Skip",lambda: None)
                 clock = pygame.time.Clock()
                 timer_duration = 20000 
@@ -517,15 +547,7 @@ class HardQuestions(Round):
                             if skip_button.rect.collidepoint(event.pos):
                                     click_skip=True
                                     break
-                        elif event.type == pygame.KEYDOWN:
-                            if event.key == pygame.K_RETURN:
-                                found_answer=self.is_correct(text,correct_answers)
-                                text=''
-                            elif event.key == pygame.K_BACKSPACE:
-                                    text = text[:-1]
-                            else:
-                                # Handle other key presses
-                                text += event.unicode
+                        found_answer=type_area.handle_event(event)
                     if not pygame.get_init():
                         return
                     if click_skip:
@@ -542,17 +564,12 @@ class HardQuestions(Round):
                         break
                     self.screen.blit(self.background, (0, 0))
                     question_text.draw(self.screen)
-                    type_area.text=text
+                 #   type_area.text=text
                     type_area.draw(self.screen)
                     skip_button.draw(self.screen)
                     timer_text = font.render(f"Time remaining: {remaining_seconds} seconds", True, WHITE)
                     timer_rect = timer_text.get_rect(center=(self.screen_width // 2, self.screen_height // 2+200))
                     self.screen.blit(timer_text, timer_rect)
-                  #  text_surface = font.render(type_area.text, True, (0,0,0))
-                  #  text_rect = text_surface.get_rect(center=(self.screen_width // 2, self.screen_height // 2+100))
-                   # screen.blit(text_surface, text_rect)
-                   # cursor_rect = pygame.Rect(text_rect.right + 5, text_rect.top, 2, text_rect.height)
-                  #  pygame.draw.rect(screen, (0,0,0), cursor_rect)
                     pygame.display.flip()
 
                     if found_answer is True:
@@ -560,5 +577,10 @@ class HardQuestions(Round):
                         print(self.user.points)
                         break
         else:
+            if not self.user_score:
+                self.user_score =  Button(self.screen_width//2-420,self.screen_height//2-120,200,50,f"Your score: {self.user.points}",lambda : None)
             self.screen.blit(self.background, (0, 0))
             self.continue_button.draw(self.screen)
+            self.user_score.draw(self.screen)
+            for answer in self.answers:
+                answer.draw(self.screen)

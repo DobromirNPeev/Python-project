@@ -14,33 +14,31 @@ class Button:
         self.text = text
         self.action = action
         self.font = pygame.font.Font(None, 36)
+        if text:
+            words = self.text.split()
+            current_line = words[0]
+            self.lines=[]
+            for word in words[1:]:
+                test_line = current_line + " " + word
+                test_surface = self.font.render(test_line, True, BLACK)
+                if test_surface.get_width() <= self.width - 20:  # Subtract padding
+                    current_line = test_line
+                else:
+                    self.update_dimensions(current_line,self.lines)
+                    self.lines.append(current_line)
+                    current_line = word
+            self.lines.append(current_line)
 
     def update_dimensions(self,current_line,lines):
         text_surface = self.font.render(current_line, True, BLACK)  # Set a minimum height
-        self.rect = pygame.Rect(self.x, self.y, self.width, self.height+text_surface.get_height()+20*len(lines))
-    
+        self.rect = pygame.Rect(self.x, self.y, self.width, self.height+text_surface.get_height()+25*len(lines))
     def draw(self, screen):
         pygame.draw.rect(screen, GRAY, self.rect)
         pygame.draw.rect(screen, BLACK, self.rect, 2)
-        if not self.text:
-            return
-        words = self.text.split()
-        current_line = words[0]
-        lines=[]
-        for word in words[1:]:
-            test_line = current_line + " " + word
-            test_surface = self.font.render(test_line, True, BLACK)
-            if test_surface.get_width() <= self.width - 20:  # Subtract padding
-                current_line = test_line
-            else:
-                self.update_dimensions(current_line,lines)
-                lines.append(current_line)
-                current_line = word
               #  self.update_dimensions()
         
         y_offset= self.y+20
-        lines.append(current_line)
-        for line in lines:
+        for line in self.lines:
             text_surface = self.font.render(line, True, BLACK)
             text_rect = text_surface.get_rect(center=(self.rect.centerx, y_offset))
             screen.blit(text_surface, text_rect)
