@@ -6,6 +6,7 @@ from User import User
 from AddQuestions import AddQuestionScreen
 from Multiplayer import PreScreenMutliplayer
 from ScreenMixin import ScreenMixin
+from Constants import screen_width,screen_height
 
 WHITE = (255, 255, 255)
 
@@ -69,7 +70,7 @@ class PreGameScreen(ScreenMixin):
                 break
             self.screen.blit(self.background, (0, 0))
             timer_text = font.render(f"Time remaining: {remaining_seconds} seconds", True, (255, 255, 255))
-            timer_rect = timer_text.get_rect(center=(self.screen_width // 2, self.screen_height // 2))
+            timer_rect = timer_text.get_rect(center=(screen_width // 2, screen_height // 2))
             self.screen.blit(timer_text, timer_rect)
             pygame.display.flip()
         return FirstRound(self.user)

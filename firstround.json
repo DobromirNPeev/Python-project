@@ -7,7 +7,7 @@
         "Paris",
         "Rome"
       ],
-      "correct_answer": "Paris"
+      "correct_answer": ["Paris"]
     },
     {
       "question": "Which planet is known as the Red Planet?",
@@ -17,7 +17,7 @@
         "Jupiter",
         "Saturn"
       ],
-      "correct_answer": "Mars"
+      "correct_answer": ["Mars"]
     },
     {
       "question": "What is the largest ocean on Earth?",
@@ -27,7 +27,7 @@
         "Arctic",
         "Pacific"
       ],
-      "correct_answer": "Pacific"
+      "correct_answer": ["Pacific"]
     },
     {
       "question": "Who wrote the play 'Romeo and Juliet'?",
@@ -37,7 +37,7 @@
         "Jane Austen",
         "Emily Bronte"
       ],
-      "correct_answer": "William Shakespeare"
+      "correct_answer": ["William Shakespeare"]
     },
     {
       "question": "Which element has the chemical symbol 'O'?",
@@ -47,7 +47,7 @@
         "Oganesson",
         "Osmium"
       ],
-      "correct_answer": "Oxygen"
+      "correct_answer": ["Oxygen"]
     },
     {
       "question": "In which year did the United States declare its independence?",
@@ -57,7 +57,7 @@
         "1801",
         "1756"
       ],
-      "correct_answer": "1776"
+      "correct_answer": ["1776"]
     },
     {
       "question": "What is the currency of Japan?",
@@ -67,7 +67,7 @@
         "Yen",
         "Ringgit"
       ],
-      "correct_answer": "Yen"
+      "correct_answer": ["Yen"]
     },
     {
       "question": "Which famous scientist developed the theory of general relativity?",
@@ -77,7 +77,7 @@
         "Galileo Galilei",
         "Stephen Hawking"
       ],
-      "correct_answer": "Albert Einstein"
+      "correct_answer": ["Albert Einstein"]
     },
     {
       "question": "What is the capital of Australia?",
@@ -87,7 +87,7 @@
         "Canberra",
         "Brisbane"
       ],
-      "correct_answer": "Canberra"
+      "correct_answer": ["Canberra"]
     },
     {
       "question": "Which gas makes up the majority of Earth's atmosphere?",
@@ -97,7 +97,7 @@
         "Nitrogen",
         "Argon"
       ],
-      "correct_answer": "Nitrogen"
+      "correct_answer": ["Nitrogen"]
     },
     {
       "question": "Who painted the Mona Lisa?",
@@ -107,7 +107,7 @@
         "Leonardo da Vinci",
         "Claude Monet"
       ],
-      "correct_answer": "Leonardo da Vinci"
+      "correct_answer": ["Leonardo da Vinci"]
     },
     {
       "question": "What is the largest mammal in the world?",
@@ -117,6 +117,6 @@
         "Giraffe",
         "Hippopotamus"
       ],
-      "correct_answer": "Blue Whale"
+      "correct_answer": ["Blue Whale"]
     }
   ]
