@@ -1,9 +1,11 @@
+from typing import override
 import pygame
 from Button import Button
 from Round import FirstRound
 from User import User
 from AddQuestions import AddQuestionScreen
 from Multiplayer import PreScreenMutliplayer
+from ScreenMixin import ScreenMixin
 
 WHITE = (255, 255, 255)
 
@@ -11,13 +13,9 @@ def getMidPoint(x,y,x1,y1):
         return [(x + x1) / 2.0,(y + y1) / 2.0]
 
 
-class MainMenu:
+class MainMenu(ScreenMixin):
     def __init__(self,user):
-        screen_width, screen_height = 1000, 600
-        self.screen = pygame.display.set_mode((screen_width, screen_height))
-        self.background = pygame.image.load("D:/Python project/logo_www-k9vmwvd2.png")
-        self.background = pygame.transform.scale(self.background, (screen_width, screen_height))
-        pygame.display.set_caption("Pygame Screen Example")
+        super().__init__()
         midPoint=getMidPoint(0,0,800,600)
         self.singleplayer = Button(midPoint[0],midPoint[1]-50,200,50,"Singleplayer",lambda : self.generate_screen())
         multiplayer = Button(midPoint[0],midPoint[1]+25,200,50,"Multiplayer",lambda : PreScreenMutliplayer())
@@ -32,6 +30,7 @@ class MainMenu:
     def generate_screen(self):
         return PreGameScreen(self.user)
     
+    @override
     def render(self, screen):
         # Draw background
         self.screen.fill(WHITE)
@@ -40,14 +39,9 @@ class MainMenu:
         for button in self.buttons:
             button.draw(screen)
 
-class PreGameScreen:
+class PreGameScreen(ScreenMixin):
     def __init__(self,user):
-        self.screen_width, self.screen_height = 1000, 600
-        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-        self.background = pygame.image.load("D:/Python project/logo_www-k9vmwvd2.png")
-        self.background = pygame.transform.scale(self.background, (self.screen_width, self.screen_height))
-        pygame.display.set_caption("Pygame Screen Example")
-        self.screen=pygame.display.set_mode((self.screen_width, self.screen_height))
+        super().__init__()
         midPoint=getMidPoint(0,0,800,600)
         self.start = Button(midPoint[0],midPoint[1]-50,200,50,"Start",lambda : self.start_game())
         self.go_back = Button(midPoint[0],midPoint[1]+25,200,50,"Go back",lambda : self.generate_menu())
@@ -79,7 +73,8 @@ class PreGameScreen:
             self.screen.blit(timer_text, timer_rect)
             pygame.display.flip()
         return FirstRound(self.user)
-
+    
+    @override
     def render(self, screen):
         # Draw background
         self.screen.fill(WHITE)

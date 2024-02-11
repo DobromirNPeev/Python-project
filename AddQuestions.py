@@ -1,10 +1,11 @@
+from typing import override
 import pygame
 from Button import Button
 from textbox import TextBoxForFiles
 from tkinter import Tk, filedialog
 import json
-import MainMenu
 from pydub import AudioSegment
+from ScreenMixin import ScreenMixin
 
 WHITE = (255, 255, 255)
 
@@ -34,14 +35,12 @@ def open_audio():
                 print("Unable to load image:", file_path)
                 return None
 
-class AddQuestionScreen:
+class AddQuestionScreen(ScreenMixin):
 
         
     def __init__(self):
-        self.screen_width, self.screen_height = 1000, 600
-        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-        self.background = pygame.image.load("D:/Python project/logo_www-k9vmwvd2.png")
-        self.background = pygame.transform.scale(self.background, (self.screen_width, self.screen_height))
+        import MainMenu
+        super().__init__()
         pygame.display.set_caption("Pygame Screen Example")
         self.first_round_question_button = Button(self.screen_width//2-100,self.screen_height//2-250,200,50,"First Round Question",lambda : self.generate_first_round_question_input())
         self.second_round_question_button = Button(self.screen_width//2-100,self.screen_height//2-160,200,50,"Second Round Question",lambda : self.generate_second_round_question_input())
@@ -63,6 +62,7 @@ class AddQuestionScreen:
     def generate_first_round_question_input(self):
         return FirstRoundQuestion()
 
+    @override
     def render(self,screen):
         self.screen.fill((255,255,255))
         screen.blit(self.background, (0, 0))
@@ -70,13 +70,10 @@ class AddQuestionScreen:
         for button in self.buttons:
             button.draw(screen)
 
-class FirstRoundQuestion:
+class FirstRoundQuestion(ScreenMixin):
 
     def __init__(self):
-        self.screen_width, self.screen_height = 1000, 600
-        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-        self.background = pygame.image.load("D:/Python project/logo_www-k9vmwvd2.png")
-        self.background = pygame.transform.scale(self.background, (self.screen_width, self.screen_height))
+        super().__init__()
         self.data={"question": "",
                    "choices": [],
                     "correct_answer": ""}
@@ -104,7 +101,8 @@ class FirstRoundQuestion:
         with open("D:/Python project/firstround.json", "w") as json_file:
             json.dump(self.loaded_data, json_file)
         return AddQuestionScreen()
-
+    
+    @override
     def render(self,screen):
         self.screen.fill(WHITE)
         screen.blit(self.background, (0, 0))
@@ -112,12 +110,9 @@ class FirstRoundQuestion:
         for button in self.buttons:
             button.draw(screen)
 
-class SecondRoundQuestion:
+class SecondRoundQuestion(ScreenMixin):
     def __init__(self):
-        self.screen_width, self.screen_height = 1000, 600
-        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-        self.background = pygame.image.load("D:/Python project/logo_www-k9vmwvd2.png")
-        self.background = pygame.transform.scale(self.background, (self.screen_width, self.screen_height))
+        super().__init__()
         self.data={"question": "",
                    "image": '',
                     "correct_answer": []}
@@ -146,7 +141,8 @@ class SecondRoundQuestion:
         with open("D:/Python project/images/questionsforimages.json", "w") as json_file:
             json.dump(self.loaded_data, json_file)
         return AddQuestionScreen()
-
+    
+    @override
     def render(self,screen):
         self.screen.fill(WHITE)
         screen.blit(self.background, (0, 0))
@@ -156,13 +152,10 @@ class SecondRoundQuestion:
         for button in self.buttons:
             button.draw(screen)
 
-class ThirdRoundQuestion:
+class ThirdRoundQuestion(ScreenMixin):
 
     def __init__(self):
-        self.screen_width, self.screen_height = 1000, 600
-        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-        self.background = pygame.image.load("D:/Python project/logo_www-k9vmwvd2.png")
-        self.background = pygame.transform.scale(self.background, (self.screen_width, self.screen_height))
+        super().__init__()
         self.data={"file_path": "",
                    "question": '',
                     "answer": ""}
@@ -191,7 +184,8 @@ class ThirdRoundQuestion:
         with open("D:/Python project/audio-files/audio-files.json", "w") as json_file:
             json.dump(self.loaded_data, json_file)
         return AddQuestionScreen()
-
+    
+    @override
     def render(self,screen):
         self.screen.fill(WHITE)
         screen.blit(self.background, (0, 0))
@@ -199,13 +193,10 @@ class ThirdRoundQuestion:
         for button in self.buttons:
             button.draw(screen)
 
-class FourthRoundQuestion:
+class FourthRoundQuestion(ScreenMixin):
 
     def __init__(self):
-        self.screen_width, self.screen_height = 1000, 600
-        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-        self.background = pygame.image.load("D:/Python project/logo_www-k9vmwvd2.png")
-        self.background = pygame.transform.scale(self.background, (self.screen_width, self.screen_height))
+        super().__init__()
         self.data={"question": "",
                    "answers": [],
                     "needed_answers": 0}
@@ -232,6 +223,7 @@ class FourthRoundQuestion:
             json.dump(self.loaded_data, json_file)
         return AddQuestionScreen()
 
+    @override
     def render(self,screen):
         self.screen.fill(WHITE)
         screen.blit(self.background, (0, 0))
@@ -239,13 +231,10 @@ class FourthRoundQuestion:
         for button in self.buttons:
             button.draw(screen)
 
-class FifthRoundQuestion:
+class FifthRoundQuestion(ScreenMixin):
 
     def __init__(self):
-        self.screen_width, self.screen_height = 1000, 600
-        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-        self.background = pygame.image.load("D:/Python project/logo_www-k9vmwvd2.png")
-        self.background = pygame.transform.scale(self.background, (self.screen_width, self.screen_height))
+        super().__init__()
         self.data={"question": "",
                    "answer": ""}
         self.question_input=Button(self.screen_width//2-210,self.screen_height//2-60,200,50,"Question input:",lambda : None)
@@ -262,12 +251,13 @@ class FifthRoundQuestion:
     def save_data(self):
         for element in self.data.values():
             if not element:
-                return
+                return AddQuestionScreen()
         self.loaded_data.append(self.data)
         with open("D:/Python project/hardquestions.json", "w") as json_file:
             json.dump(self.loaded_data, json_file)
         return AddQuestionScreen()
-
+    
+    @override
     def render(self,screen):
         self.screen.fill(WHITE)
         screen.blit(self.background, (0, 0))

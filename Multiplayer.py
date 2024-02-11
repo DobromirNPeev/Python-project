@@ -1,3 +1,4 @@
+from typing import override
 import pygame
 from Button import Button
 from textbox import TextBoxForMultiplayer,TextBoxForQuestions
@@ -6,6 +7,8 @@ import json
 import random
 import os
 import pydub
+from ScreenMixin import ScreenMixin
+from Round import LoadFiles
 
 WHITE = (255, 255, 255)
 
@@ -19,15 +22,10 @@ def choose_random_question(questions):
         random_index = random.randrange(len(questions))
         return questions.pop(random_index)
 
-class PreScreenMutliplayer:
+class PreScreenMutliplayer(ScreenMixin):
 
     def __init__(self):
-        self.font = pygame.font.Font(None, 36)
-        self.screen_width, self.screen_height = 1000, 600
-        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-        self.background = pygame.image.load("D:/Python project/logo_www-k9vmwvd2.png")
-        self.background = pygame.transform.scale(self.background, (self.screen_width, self.screen_height))
-        pygame.display.set_caption("Pygame Screen Example")
+        super().__init__()
         self.user1=User()
         self.user2=User()
         self.enter_player1_name=Button(self.screen_width//2-100,self.screen_height//2-150,300,50,"Player 1 enter name:",lambda: None)
@@ -59,7 +57,8 @@ class PreScreenMutliplayer:
             self.screen.blit(timer_text, timer_rect)
             pygame.display.flip()
         return FirstRoundMultiplayer(self.user1,self.user2)
-
+    
+    @override
     def render(self,screen):
         self.screen.fill(WHITE)
         screen.blit(self.background, (0, 0))
@@ -67,19 +66,12 @@ class PreScreenMutliplayer:
         for button in self.buttons:
             button.draw(screen)     
 
-class FirstRoundMultiplayer:
+class FirstRoundMultiplayer(LoadFiles,ScreenMixin):
 
     def __init__(self,player1,player2):
-        with open("D:/Python project/firstround.json", 'r') as file:
-            self.loaded_data = json.load(file)
-            print(self.loaded_data)
-        self.font = pygame.font.Font(None, 36)
-        self.screen_width, self.screen_height = 1000, 600
-        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-        self.background = pygame.image.load("D:/Python project/logo_www-k9vmwvd2.png")
-        self.background = pygame.transform.scale(self.background, (self.screen_width, self.screen_height))
-        pygame.display.set_caption("Pygame Screen Example")
-        self.screen=pygame.display.set_mode((self.screen_width, self.screen_height))
+        super().__init__("D:/Python project/firstround.json")
+        self.load_questions()
+        ScreenMixin.__init__(self)
         self.midPoint=getMidPoint(0,0,800,600)
         self.player1 = player1
         self.player2 = player2
@@ -96,7 +88,8 @@ class FirstRoundMultiplayer:
     @staticmethod
     def is_correct(answer,correct_answer):
         return answer==correct_answer
-
+    
+    @override
     def render(self,screen):
         screen.fill(WHITE)
         if self.generated_questions<10:
@@ -185,17 +178,11 @@ class FirstRoundMultiplayer:
             for answer in self.answers:
                 answer.draw(self.screen)
 
-class ImageRoundMultiplayer:
+class ImageRoundMultiplayer(ScreenMixin):
     
     def __init__(self,player1,player2):
-        self.screen_width, self.screen_height = 1000, 600
+        super().__init__()
         self.load_images_from_folder("D:/Python project/images","D:/Python project/images/questionsforimages.json")
-        self.font = pygame.font.Font(None, 36)
-        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-        self.background = pygame.image.load("D:/Python project/logo_www-k9vmwvd2.png")
-        self.background = pygame.transform.scale(self.background, (self.screen_width, self.screen_height))
-        pygame.display.set_caption("Pygame Screen Example")
-        self.screen=pygame.display.set_mode((self.screen_width, self.screen_height))
         self.midPoint=getMidPoint(0,0,800,600)
        # self.copy_questions=copy.deepcopy(self.image_data)
         self.continue_button = Button(self.screen_width//2-420,self.screen_height//2-60,200,50,"Continue",lambda : AudioRoundMultiplayer(self.player1,self.player2))
@@ -235,7 +222,8 @@ class ImageRoundMultiplayer:
                     return True
             return False
         return answer.lower() == correct_answers.lower()
-
+    
+    @override
     def render(self,screen):
         screen.fill(WHITE)
         if self.generated_questions<9:
@@ -314,17 +302,11 @@ class ImageRoundMultiplayer:
             for answer in self.answers:
                 answer.draw(self.screen)
 
-class AudioRoundMultiplayer:
+class AudioRoundMultiplayer(ScreenMixin):
 
     def __init__(self,player1,player2):
-        self.screen_width, self.screen_height = 1000, 600
+        super().__init__()
         self.load_audio_from_folder("D:/Python project/audio-files","D:/Python project/audio-files/audio-files.json")
-        self.font = pygame.font.Font(None, 36)
-        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-        self.background = pygame.image.load("D:/Python project/logo_www-k9vmwvd2.png")
-        self.background = pygame.transform.scale(self.background, (self.screen_width, self.screen_height))
-        pygame.display.set_caption("Pygame Screen Example")
-        self.screen=pygame.display.set_mode((self.screen_width, self.screen_height))
         self.continue_button = Button(self.screen_width//2-420,self.screen_height//2-60,200,50,"Continue",lambda : OpenQuestionsMultiplayer(self.player1,self.player2))
         self.buttons=[self.continue_button]
         self.offset=260
@@ -352,6 +334,7 @@ class AudioRoundMultiplayer:
 
             self.audio_data.append( {'question' : entry['question'],'audio':audio , 'correct_answer': answer})
 
+    @override
     def render(self,screen):
         screen.fill(WHITE)
         if self.generated_questions<9:
@@ -431,19 +414,12 @@ class AudioRoundMultiplayer:
                 answer.draw(self.screen)
 
 
-class OpenQuestionsMultiplayer:
+class OpenQuestionsMultiplayer(LoadFiles,ScreenMixin):
 
     def __init__(self,player1,player2):
-        with open("D:/Python project/openquestions.json", 'r') as file:
-            self.loaded_data = json.load(file)
-            print(self.loaded_data)
-        self.font = pygame.font.Font(None, 36)
-        self.screen_width, self.screen_height = 1000, 600
-        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-        self.background = pygame.image.load("D:/Python project/logo_www-k9vmwvd2.png")
-        self.background = pygame.transform.scale(self.background, (self.screen_width, self.screen_height))
-        pygame.display.set_caption("Pygame Screen Example")
-        self.screen=pygame.display.set_mode((self.screen_width, self.screen_height))
+        super().__init__("D:/Python project/openquestions.json")
+        self.load_questions()
+        ScreenMixin.__init__(self)
         self.midPoint=getMidPoint(0,0,800,600)
         self.player1 = player1
         self.player2 = player2
@@ -467,7 +443,8 @@ class OpenQuestionsMultiplayer:
                     return True
             return False
         return answer.lower() == correct_answers.lower()
-
+    
+    @override
     def render(self,screen):
         screen.fill(WHITE)
         if self.generated_questions<10:
@@ -550,25 +527,19 @@ class OpenQuestionsMultiplayer:
             for answer in self.answers:
                 answer.draw(self.screen)
 
-class HardQuestionsMultiplayer:
+class HardQuestionsMultiplayer(LoadFiles,ScreenMixin):
     def __init__(self,player1,player2):
-        with open("D:/Python project/hardquestions.json", 'r') as file:
-            self.loaded_data = json.load(file)
-            print(self.loaded_data)
-        self.font = pygame.font.Font(None, 36)
-        self.screen_width, self.screen_height = 1000, 600
-        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-        self.background = pygame.image.load("D:/Python project/logo_www-k9vmwvd2.png")
-        self.background = pygame.transform.scale(self.background, (self.screen_width, self.screen_height))
-        pygame.display.set_caption("Pygame Screen Example")
-        self.screen=pygame.display.set_mode((self.screen_width, self.screen_height))
+        from MainMenu import MainMenu
+        super().__init__("D:/Python project/hardquestions.json")
+        self.load_questions()
+        ScreenMixin.__init__(self)
         self.midPoint=getMidPoint(0,0,800,600)
         self.player1 = player1
         self.player2 = player2
         self.player1_score = None
         self.player2_score=None
         midPoint=getMidPoint(0,0,800,600)
-        self.continue_button = Button(self.screen_width//2-420,self.screen_height//2-60,200,50,"Go to main menu",lambda : None)
+        self.continue_button = Button(self.screen_width//2-420,self.screen_height//2-60,200,50,"Go to main menu",lambda : MainMenu(User()))
         self.buttons=[self.continue_button]
         self.offset=260
         self.offset_upper_half=260
@@ -585,7 +556,8 @@ class HardQuestionsMultiplayer:
                     return True
             return False
         return answer.lower() == correct_answers.lower()
-
+    
+    @override
     def render(self,screen):
         screen.fill(WHITE)
         if self.generated_questions<6:
