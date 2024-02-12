@@ -25,13 +25,13 @@ def main():
                     pygame.quit()
                     return
                 next_screen=button.handle_event(event)
+                if not pygame.get_init():
+                    return
                 if isinstance(next_screen,ScreenMixin):
                     break
             if isinstance(next_screen,ScreenMixin):
                     break
             
-        if not pygame.get_init():
-            return
         # If a new screen is returned, switch to that screen
         if isinstance(next_screen,ScreenMixin):
             current_screen = next_screen

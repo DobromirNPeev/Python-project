@@ -1,15 +1,14 @@
 import pygame
 import copy
+from Constants import BLACK,WHITE
 
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
 
 class TextBoxForFiles:
     def __init__(self, x, y, width, height,name,data, text=''):
         self.rect = pygame.Rect(x, y, width, height)
         self.name=name
         self.data=data
-        self.color = WHITE
+        self.color = BLACK
         self.text = text
         self.font = pygame.font.Font(None, 32)
         self.txt_surface = self.font.render(text, True, BLACK)
