@@ -22,3 +22,12 @@ class TimeCountdown:
 
     def __bool__(self):
         return self.remaining_seconds>0
+
+    def start_clock(self,background):
+        while True:
+            self.tick()
+            if not self:
+                break
+            self.screen.blit(background, (0, 0))
+            self.draw_countdown()
+            pygame.display.flip()

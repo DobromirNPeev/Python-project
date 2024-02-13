@@ -12,15 +12,15 @@ class LoadFiles:
         for entry in loaded_data:
             question = entry['question']
             filename = entry['file_path']
-            answers = entry['answers']
+            answers = entry['answer(s)']
 
             path = os.path.join(folder, filename)
             if file_type == "images":
                 element = pygame.image.load(path)
-                multimedia_data.append( {'question' : question, 'image': element, 'rect': element.get_rect(center=(screen_width // 2, screen_height // 2-150)), 'answers': answers})
+                multimedia_data.append( {'question' : question, 'image': element, 'rect': element.get_rect(center=(screen_width // 2, screen_height // 2-150)), 'answer(s)': answers})
             else:
                 element = pydub.AudioSegment.from_file(path)
-                multimedia_data.append( {'question' : question,'audio':element , 'answers': answers})
+                multimedia_data.append( {'question' : question,'audio':element , 'answer(s)': answers})
         return multimedia_data
                 
     @staticmethod

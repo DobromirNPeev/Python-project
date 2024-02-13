@@ -1,13 +1,13 @@
 import pygame
 from MainMenu import MainMenu
-from User import User
+from Player import Player
 from ScreenMixin import ScreenMixin
 
 def main():
     pygame.init()
     WHITE = (255, 255, 255)
 
-    user = User()
+    user = Player()
 
     running =True
     main_menu=MainMenu(user)
@@ -17,8 +17,6 @@ def main():
     current_screen=main_menu
     while True:
         events = pygame.event.get()
-
-        # Handle events for the current screen
         for event in events: 
             for button in current_screen.buttons:
                 if event.type == pygame.QUIT:

@@ -1,1 +1,91 @@
-[{"file_path": "Bon Jovi - Always.mp3", "question": "What is the name of this song ?", "answers": ["Always"]}, {"file_path": "Alisiq i emrah - dusho moq.mp3", "question": "Who is/are performing that song ?", "answers": ["Alisiq i emrah", "alisia i emrah", "Emrah i alisiq", "Emrah i alisia"]}, {"file_path": "Bon Jovi - Livin' On A Prayer.mp3", "question": "What is the name of this song ?", "answers": ["Living on a prayer", "Livin' on a prayer"]}, {"file_path": "Eminem - Lose Yourself [HD].mp3", "question": "What is the name of this song ?", "answers": ["Lose yourself"]}, {"file_path": "Indiana Jones  Main Theme  John Williams.mp3", "question": "From which movie is this theme ?", "answers": ["Indiana jones"]}, {"file_path": "Natasha Bedingfield - Unwritten (US Version) (Official Video).mp3", "question": "Who is performing that song ?", "answers": ["Natasha Bedingfield"]}, {"file_path": "NSYNC - Better Place (Official Audio).mp3", "question": "Which band is performing that song ?", "answers": ["NSYNC"]}, {"file_path": "Rocky - Eye of The Tiger.mp3", "question": "From which movies is that song ?", "answers": ["Rocky", "Rocky 3"]}, {"file_path": "Ryan Gosling - I'm Just Ken (From Barbie The Album) [Official Audio].mp3", "question": "From which movies is that song ?", "answers": ["Barbie"]}, {"file_path": "Pri toto.mp3", "question": "What is the name of the podcast ?", "answers": ["Pri Toto"]}, {"file_path": "C:/Users/dobot/Downloads/One Direction - What Makes You Beautiful (Official Video) (mp3cut.net) (1).mp3", "question": "trhhtr", "answers": ["rhttrh"]}, {"file_path": "D:/Python project/audio-files/Miles Teller - Great Balls of Fire (From Top Gun_ Maverick) [Official Video] (mp3cut.net) (1).mp3", "question": "From which movie is that song ?", "answers": ["Top Gun:maverick"]}]
+[
+    {
+      "file_path": "Bon Jovi - Always.mp3",
+      "question": "What is the name of this song ?",
+      "answer(s)": [
+        "Always"
+      ]
+    },
+    {
+      "file_path": "Alisiq i emrah - dusho moq.mp3",
+      "question": "Who is/are performing that song ?",
+      "answer(s)": [
+        "Alisiq i emrah",
+        "alisia i emrah",
+        "Emrah i alisiq",
+        "Emrah i alisia"
+      ]
+    },
+    {
+      "file_path": "Bon Jovi - Livin' On A Prayer.mp3",
+      "question": "What is the name of this song ?",
+      "answer(s)": [
+        "Living on a prayer",
+        "Livin' on a prayer"
+      ]
+    },
+    {
+      "file_path": "Eminem - Lose Yourself [HD].mp3",
+      "question": "What is the name of this song ?",
+      "answer(s)": [
+        "Lose yourself"
+      ]
+    },
+    {
+      "file_path": "Indiana Jones  Main Theme  John Williams.mp3",
+      "question": "From which movie is this theme ?",
+      "answer(s)": [
+        "Indiana jones"
+      ]
+    },
+    {
+      "file_path": "Natasha Bedingfield - Unwritten (US Version) (Official Video).mp3",
+      "question": "Who is performing that song ?",
+      "answer(s)": [
+        "Natasha Bedingfield"
+      ]
+    },
+    {
+      "file_path": "NSYNC - Better Place (Official Audio).mp3",
+      "question": "Which band is performing that song ?",
+      "answer(s)": [
+        "NSYNC"
+      ]
+    },
+    {
+      "file_path": "Rocky - Eye of The Tiger.mp3",
+      "question": "From which movies is that song ?",
+      "answer(s)": [
+        "Rocky",
+        "Rocky 3"
+      ]
+    },
+    {
+      "file_path": "Ryan Gosling - I'm Just Ken (From Barbie The Album) [Official Audio].mp3",
+      "question": "From which movies is that song ?",
+      "answer(s)": [
+        "Barbie"
+      ]
+    },
+    {
+      "file_path": "Pri toto.mp3",
+      "question": "What is the name of the podcast ?",
+      "answer(s)": [
+        "Pri Toto"
+      ]
+    },
+    {
+      "file_path": "C:/Users/dobot/Downloads/One Direction - What Makes You Beautiful (Official Video) (mp3cut.net) (1).mp3",
+      "question": "trhhtr",
+      "answer(s)": [
+        "rhttrh"
+      ]
+    },
+    {
+      "file_path": "D:/Python project/audio-files/Miles Teller - Great Balls of Fire (From Top Gun_ Maverick) [Official Video] (mp3cut.net) (1).mp3",
+      "question": "From which movie is that song ?",
+      "answer(s)": [
+        "Top Gun:maverick"
+      ]
+    }
+  ]
