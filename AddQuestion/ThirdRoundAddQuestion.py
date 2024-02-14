@@ -1,9 +1,11 @@
 from typing import override
 from Button import Button
 from TextBox.TextBoxForFiles import TextBoxForFiles
-from Constants import screen_height,screen_width,THIRD_ROUND_QUESTION_PATH
+from Constants import screen_height,screen_width,THIRD_ROUND_QUESTION_PATH,AUDIO_PATH
 from AddQuestion.AddQuestionMixin import AddQuestionMixin
 from FileManager.OpenFiles import OpenFiles
+from FileManager.FileCommands import FileCommands
+import pygame
 
 class ThirdRoundAddQuestion(AddQuestionMixin):
 
@@ -26,5 +28,18 @@ class ThirdRoundAddQuestion(AddQuestionMixin):
         self.audio= None
 
     def open_audio(self):
-        self.audio,self.audio_path=OpenFiles.open_audio()
+        if self.audio:
+            self.sound.stop()
+        self.audio,self.audio_path,self.original_path=OpenFiles.open_audio()
         self.data['file_path']=self.audio_path
+        pygame.mixer.init()
+        self.sound = pygame.mixer.Sound((self.audio-30).raw_data)
+        self.sound.play()
+
+    @override
+    def _save_data(self):
+        if self.audio:
+            self.sound.stop()
+        next_screen = super()._save_data()
+        FileCommands.move_file(self.original_path,AUDIO_PATH)
+        return next_screen

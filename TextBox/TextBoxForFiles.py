@@ -1,5 +1,6 @@
 import pygame
 from Constants import BLACK,WHITE
+import copy
 from TextBox.TextBoxBase import TextBoxBase
 
 
@@ -19,8 +20,10 @@ class TextBoxForFiles(TextBoxBase):
         if event.type == pygame.KEYDOWN:
             if self.active:
                 if event.key == pygame.K_RETURN:
-                    if isinstance(self.data[self.name],list) and self.text:
+                    if isinstance(self.data[self.name],list):
                         self.data[self.name].append(self.text)
+                    else:
+                        self.data[self.name]=copy.deepcopy(self.text)
                     print(self.text)
                     self.text = ''
                 elif event.key == pygame.K_BACKSPACE:

@@ -1,6 +1,7 @@
 import pygame
 from tkinter import Tk, filedialog
 from pydub import AudioSegment
+import os
 
 class OpenFiles:
 
@@ -13,7 +14,7 @@ class OpenFiles:
         if file_path:
             try:
                 image = pygame.image.load(file_path)
-                return image,file_path
+                return image,os.path.basename(file_path),file_path
             except pygame.error:
                 print("Unable to load image:", file_path)
                 return None
@@ -27,7 +28,7 @@ class OpenFiles:
         if file_path:
             try:
                 audio = AudioSegment.from_file(file_path)
-                return audio,file_path
+                return audio,os.path.basename(file_path),file_path
             except BaseException:
                 print("Unable to load image:", file_path)
                 return None

@@ -1,4 +1,5 @@
 import os
+import shutil
 
 class FileCommands:
     @staticmethod
@@ -12,3 +13,8 @@ class FileCommands:
     def find_folder_path(folder_name):
         current_directory = os.getcwd()
         return os.path.join(current_directory, folder_name)
+    
+        
+    @staticmethod
+    def move_file(questions_path,folder_name):
+        shutil.move(questions_path,FileCommands.find_folder_path(folder_name))

@@ -9,6 +9,8 @@ from Multiplayer.FirstRoundMultiplayer import FirstRoundMultiplayer
 class PregameScreenMutliplayer(ScreenMixin):
 
     def __init__(self):
+        from MainMenu import MainMenu
+        from Player import Player
         super().__init__()
         self.user1=Player()
         self.user2=Player()
@@ -17,7 +19,8 @@ class PregameScreenMutliplayer(ScreenMixin):
         self.enter_player2_name=Button(screen_width//2-100,screen_height//2-40,300,50,"Player 2 enter name:",lambda: None)
         self.enter_player2_textbox=TextBoxForMultiplayer(screen_width // 2-100, screen_height // 2+20,250,35,self.user2)
         self.ready=Button(screen_width//2-100,screen_height//2+80,200,50,"Ready",lambda: self.start_game())
-        self.buttons=[self.enter_player1_name,self.enter_player1_textbox,self.enter_player2_name,self.enter_player2_textbox,self.ready]
+        self.go_back = Button(screen_width//2-100,screen_height//2+140,200,50,"Go back",lambda : MainMenu(Player()))
+        self.buttons=[self.enter_player1_name,self.enter_player1_textbox,self.enter_player2_name,self.enter_player2_textbox,self.ready,self.go_back]
 
     def start_game(self):
         self.timer=TimeCountdown(5000,self.screen)

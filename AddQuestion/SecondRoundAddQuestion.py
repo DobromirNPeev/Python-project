@@ -1,9 +1,11 @@
 from typing import override
 from Button import Button
 from TextBox.TextBoxForFiles import TextBoxForFiles
-from Constants import screen_height,screen_width,SECOND_ROUND_QUESTION_PATH
+from Constants import screen_height,screen_width,SECOND_ROUND_QUESTION_PATH,IMAGES_PATH
 from AddQuestion.AddQuestionMixin import AddQuestionMixin
 from FileManager.OpenFiles import OpenFiles
+from FileManager.FileCommands import FileCommands
+import os
 
 class SecondRoundAddQuestion(AddQuestionMixin):
 
@@ -26,7 +28,7 @@ class SecondRoundAddQuestion(AddQuestionMixin):
         self.image = None
 
     def open_image(self):
-        self.image,self.image_path=OpenFiles.open_image()
+        self.image,self.image_path,self.original_path=OpenFiles.open_image()
         self.data['file_path']=self.image_path
     
     @override
@@ -38,4 +40,5 @@ class SecondRoundAddQuestion(AddQuestionMixin):
     @override
     def _save_data(self):
         next_screen = super()._save_data()
+        FileCommands.move_file(self.original_path,IMAGES_PATH)
         return next_screen

@@ -11,9 +11,9 @@ WHITE = (255, 255, 255)
 class MainMenu(ScreenMixin):
     def __init__(self,player):
         super().__init__()
-        self.singleplayer = Button(screen_width//2,screen_height//2-50,200,50,"Singleplayer",lambda : PregameScreenSingleplayer(self.player))
-        multiplayer = Button(screen_width//2,screen_height//2+25,200,50,"Multiplayer",lambda : PregameScreenMutliplayer())
-        add_quesiton = Button(screen_width//2,screen_height//2+100,200,50,"Add question",lambda : AddQuestionScreen())
-        exit = Button(screen_width//2,screen_height//2+175,200,50,"Exit",lambda: pygame.quit())
+        self.singleplayer = Button(screen_width//2-100,screen_height//2-50,200,50,"Singleplayer",lambda : PregameScreenSingleplayer(self.player))
+        multiplayer = Button(screen_width//2-100,screen_height//2+25,200,50,"Multiplayer",lambda : PregameScreenMutliplayer())
+        add_quesiton = Button(screen_width//2-100,screen_height//2+100,200,50,"Add question",lambda : AddQuestionScreen())
+        exit = Button(screen_width//2-100,screen_height//2+175,200,50,"Exit",lambda: pygame.quit())
         self.buttons=[self.singleplayer,multiplayer,add_quesiton,exit]
         self.player = player
