@@ -6,7 +6,7 @@ class SaveFiles:
 
     @staticmethod
     def save_data(data,loaded_data,questions_path):
-        from AddQuestions import AddQuestionScreen
+        from AddQuestion.AddQuestionScreen import AddQuestionScreen
         for element in data.values():
             if not element:
                 return AddQuestionScreen()

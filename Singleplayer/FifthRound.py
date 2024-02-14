@@ -1,9 +1,9 @@
 from typing import override
 from Button import Button
 from Player import Player
-from Constants import *
-from RoundBase import Round
-from textbox import TextBoxForQuestions
+from Constants import FIFTH_ROUND_QUESTION_PATH,POINTS_FOR_FIFTH_ROUND,TIME_FOR_FIFTH_ROUND,QUESTIONS_FOR_FIFTH_ROUND,screen_height,screen_width
+from Singleplayer.Round import Round
+from TextBox.TextBoxForQuestions import TextBoxForQuestions
 
 class FifthRound(Round):
 

@@ -1,9 +1,5 @@
 import pygame
-import json
-
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-GRAY = (200, 200, 200)
+from Constants import BLACK,GRAY
 
 class Button:
 
@@ -32,10 +28,10 @@ class Button:
     def update_dimensions(self,current_line,lines):
         text_surface = self.font.render(current_line, True, BLACK)  # Set a minimum height
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height+text_surface.get_height()+25*len(lines))
+
     def draw(self, screen):
         pygame.draw.rect(screen, GRAY, self.rect)
         pygame.draw.rect(screen, BLACK, self.rect, 2)
-              #  self.update_dimensions()
         
         y_offset= self.y+20
         for line in self.lines:

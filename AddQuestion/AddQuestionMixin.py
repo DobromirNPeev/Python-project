@@ -1,6 +1,6 @@
-from LoadFiles import LoadFiles
+from FileManager.LoadFiles import LoadFiles
 from ScreenMixin import ScreenMixin
-from SaveFiles import SaveFiles
+from FileManager.SaveFiles import SaveFiles
 
 class AddQuestionMixin(ScreenMixin):
 

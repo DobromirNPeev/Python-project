@@ -1,17 +1,13 @@
 from typing import override
 from Button import Button
-import pygame
-from Player import Player
-from Constants import *
-from LoadFiles import LoadFiles
-from RoundBase import Round
-from textbox import TextBoxForQuestions
-
+from Constants import FOURTH_ROUND_QUESTION_PATH,QUESTIONS_FOR_FOURTH_ROUND,POINTS_FOR_FOURTH_ROUND,TIME_FOR_FOURTH_ROUND,screen_height,screen_width
+from Singleplayer.Round import Round
+from TextBox.TextBoxForQuestions import TextBoxForQuestions
+from Singleplayer.FifthRound import FifthRound
 
 class FourthRound(Round):
 
     def __init__(self,player):
-        from FifthRound import FifthRound
         super().__init__(FOURTH_ROUND_QUESTION_PATH,lambda : FifthRound(player),
                          POINTS_FOR_FOURTH_ROUND,
                          TIME_FOR_FOURTH_ROUND,

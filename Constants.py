@@ -1,8 +1,9 @@
 from State import State
-import os
+from FileManager.FileCommands import FileCommands
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
+GRAY = (200, 200, 200)
 
 screen_width, screen_height = 1000, 600
 
@@ -30,14 +31,12 @@ QUESTIONS_FOR_FIFTH_ROUND=5
 
 TIME_FOR_LOADING_SCREEN=5000
 
-def find_file_path(filename):
-    for root, dirs, files in os.walk('.'):
-        if filename in files:
-            return os.path.join(root, filename)
-    return None
+FIRST_ROUND_QUESTION_PATH=FileCommands.find_file_path('firstroundquestions.json')
+SECOND_ROUND_QUESTION_PATH=FileCommands.find_file_path('secondroundquestions.json')
+THIRD_ROUND_QUESTION_PATH=FileCommands.find_file_path('thirdroundquestions.json')
+FOURTH_ROUND_QUESTION_PATH=FileCommands.find_file_path('fourthroundquestions.json')
+FIFTH_ROUND_QUESTION_PATH=FileCommands.find_file_path('fifthroundquestions.json')
+BACKGROUND_PATH = FileCommands.find_file_path("background.png")
 
-FIRST_ROUND_QUESTION_PATH=find_file_path('firstround.json')
-SECOND_ROUND_QUESTION_PATH=find_file_path('questionsforimages.json')
-THIRD_ROUND_QUESTION_PATH=find_file_path('audio-files.json')
-FOURTH_ROUND_QUESTION_PATH=find_file_path('openquestions.json')
-FIFTH_ROUND_QUESTION_PATH=find_file_path('hardquestions.json')
+IMAGES_PATH=FileCommands.find_folder_path('images')
+AUDIO_PATH=FileCommands.find_folder_path('audio-files')

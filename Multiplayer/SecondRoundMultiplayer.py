@@ -1,14 +1,14 @@
 from typing import override
 from Button import Button
-from textbox import TextBoxForQuestions
-from LoadFiles import LoadFiles
-from Constants import *
-from MultiplayerRound import MultiplayerRound
+from TextBox.TextBoxForQuestions import TextBoxForQuestions
+from FileManager.LoadFiles import LoadFiles
+from Constants import SECOND_ROUND_QUESTION_PATH,POINTS_FOR_SECOND_ROUND,TIME_FOR_SECOND_ROUND,QUESTIONS_FOR_SECOND_ROUND,IMAGES_PATH,screen_height,screen_width
+from Multiplayer.MultiplayerRound import MultiplayerRound
+from Multiplayer.ThirdRoundMultiplayer import ThirdRoundMultiplayer
 
 class SecondRoundMultiplayer(MultiplayerRound):
     
     def __init__(self,player1,player2):
-        from ThirdRoundMultiplayer import ThirdRoundMultiplayer
         super().__init__(SECOND_ROUND_QUESTION_PATH,lambda: ThirdRoundMultiplayer(player1,player2),
                          POINTS_FOR_SECOND_ROUND,
                          TIME_FOR_SECOND_ROUND,

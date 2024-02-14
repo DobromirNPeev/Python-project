@@ -1,17 +1,14 @@
 from typing import override
 from Button import Button
 import pygame
-from Player import Player
-from Constants import *
-from LoadFiles import LoadFiles
-from RoundBase import Round
-from textbox import TextBoxForQuestions
+from Constants import FIRST_ROUND_QUESTION_PATH,POINTS_FOR_FIRST_ROUND,TIME_FOR_FIRST_ROUND,QUESTIONS_FOR_FIRST_ROUND,screen_height,screen_width,TERMINATED,VALID,SKIPPED
+from Singleplayer.Round import Round
+from Singleplayer.SecondRound import SecondRound
 
 
 class FirstRound(Round):
 
     def __init__(self,player):
-        from SecondRound import SecondRound
         super().__init__(FIRST_ROUND_QUESTION_PATH,lambda : SecondRound(player),
                          POINTS_FOR_FIRST_ROUND,
                          TIME_FOR_FIRST_ROUND,

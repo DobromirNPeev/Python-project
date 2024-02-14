@@ -1,14 +1,14 @@
 from typing import override
 import pygame
 from Button import Button
-from Constants import *
-from MultiplayerRound import MultiplayerRound
+from Constants import FIRST_ROUND_QUESTION_PATH,POINTS_FOR_FIRST_ROUND,TIME_FOR_FIRST_ROUND,QUESTIONS_FOR_FIRST_ROUND,screen_height,screen_width,TERMINATED,SKIPPED,VALID
+from Multiplayer.MultiplayerRound import MultiplayerRound
+from Multiplayer.SecondRoundMultiplayer import SecondRoundMultiplayer
 
 
 class FirstRoundMultiplayer(MultiplayerRound):
 
     def __init__(self,player1,player2):
-        from SecondRoundMultiplayer import SecondRoundMultiplayer
         super().__init__(FIRST_ROUND_QUESTION_PATH,lambda : SecondRoundMultiplayer(player1,player2),
                          POINTS_FOR_FIRST_ROUND,
                          TIME_FOR_FIRST_ROUND,

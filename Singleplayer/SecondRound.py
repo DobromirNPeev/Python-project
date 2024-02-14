@@ -1,22 +1,20 @@
 from typing import override
 from Button import Button
-import pygame
-from Player import Player
-from Constants import *
-from LoadFiles import LoadFiles
-from RoundBase import Round
-from textbox import TextBoxForQuestions
+from Constants import SECOND_ROUND_QUESTION_PATH,POINTS_FOR_SECOND_ROUND,TIME_FOR_SECOND_ROUND,QUESTIONS_FOR_SECOND_ROUND,IMAGES_PATH,screen_height,screen_width
+from FileManager.LoadFiles import LoadFiles
+from Singleplayer.Round import Round
+from TextBox.TextBoxForQuestions import TextBoxForQuestions
+from Singleplayer.ThirdRound import ThirdRound
 
 class SecondRound(Round):
     
     def __init__(self,player):
-        from ThirdRound import ThirdRound
         super().__init__(SECOND_ROUND_QUESTION_PATH,lambda: ThirdRound(player),
                          POINTS_FOR_SECOND_ROUND,
                          TIME_FOR_SECOND_ROUND,
                          QUESTIONS_FOR_SECOND_ROUND,
                          player)
-        self.loaded_data=LoadFiles.load_images(self.loaded_data,"D:/Python project/images")
+        self.loaded_data=LoadFiles.load_images(self.loaded_data,IMAGES_PATH)
 
     @override
     def _create_interface(self):

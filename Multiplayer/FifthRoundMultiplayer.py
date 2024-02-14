@@ -1,10 +1,9 @@
 from typing import override
-import pygame
 from Button import Button
-from textbox import TextBoxForQuestions
+from TextBox.TextBoxForQuestions import TextBoxForQuestions
 from Player import Player
 from Constants import *
-from MultiplayerRound import MultiplayerRound
+from Multiplayer.MultiplayerRound import MultiplayerRound
 
 class FifthRoundMultiplayer(MultiplayerRound):
     def __init__(self,player1,player2):
@@ -12,7 +11,7 @@ class FifthRoundMultiplayer(MultiplayerRound):
         super().__init__(FIFTH_ROUND_QUESTION_PATH,lambda : MainMenu(Player()),
                          POINTS_FOR_FIFTH_ROUND,
                          TIME_FOR_FIFTH_ROUND,
-                         QUESTIONS_FOR_FIFTH_ROUND,
+                         QUESTIONS_FOR_FIFTH_ROUND+1,
                          player1,player2)
     
     @override

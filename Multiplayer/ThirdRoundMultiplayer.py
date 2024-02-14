@@ -1,20 +1,20 @@
 import pygame
 from Button import Button
-from textbox import TextBoxForQuestions
-from LoadFiles import LoadFiles
-from Constants import *
-from MultiplayerRound import MultiplayerRound
+from TextBox.TextBoxForQuestions import TextBoxForQuestions
+from FileManager.LoadFiles import LoadFiles
+from Constants import THIRD_ROUND_QUESTION_PATH,POINTS_FOR_THIRD_ROUND,TIME_FOR_THIRD_ROUND,QUESTIONS_FOR_THIRD_ROUND,AUDIO_PATH,screen_height,screen_width
+from Multiplayer.MultiplayerRound import MultiplayerRound
+from Multiplayer.FourthRoundMultiplayer import FourthRoundMultiplayer
 
 class ThirdRoundMultiplayer(MultiplayerRound):
 
     def __init__(self,player1,player2):
-        from FourthRoundMultiplayer import FourthRoundMultiplayer
         super().__init__(THIRD_ROUND_QUESTION_PATH,lambda : FourthRoundMultiplayer(player1,player2),
                          POINTS_FOR_THIRD_ROUND,
                          TIME_FOR_THIRD_ROUND,
                          QUESTIONS_FOR_THIRD_ROUND,
                          player1,player2)
-        self.loaded_data=LoadFiles.load_audio(self.loaded_data,"D:/Python project/audio-files")
+        self.loaded_data=LoadFiles.load_audio(self.loaded_data,AUDIO_PATH)
 
     def _create_interface(self):
         self.player_turn=Button(screen_width//2 - 115,screen_height//2 + 225,250,50,f"{self.current_player.name}'s turn",lambda: None)

@@ -1,13 +1,13 @@
 from typing import override
 from Button import Button
-from textbox import TextBoxForQuestions
-from Constants import *
-from MultiplayerRound import MultiplayerRound
+from TextBox.TextBoxForQuestions import TextBoxForQuestions
+from Constants import FOURTH_ROUND_QUESTION_PATH,POINTS_FOR_FOURTH_ROUND,TIME_FOR_FOURTH_ROUND,QUESTIONS_FOR_FOURTH_ROUND,screen_height,screen_width
+from Multiplayer.MultiplayerRound import MultiplayerRound
+from Multiplayer.FifthRoundMultiplayer import FifthRoundMultiplayer
 
 class FourthRoundMultiplayer(MultiplayerRound):
 
     def __init__(self,player1,player2):
-        from FifthRoundMultiplayer import FifthRoundMultiplayer
         super().__init__(FOURTH_ROUND_QUESTION_PATH,lambda : FifthRoundMultiplayer(player1,player2),
                          POINTS_FOR_FOURTH_ROUND,
                          TIME_FOR_FOURTH_ROUND,

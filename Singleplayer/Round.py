@@ -1,10 +1,9 @@
-from typing import override
 from Button import Button
 from Constants import screen_height,screen_width,TERMINATED,VALID,SKIPPED,WHITE
 from TimeCountdown import TimeCountdown
 import random
 import pygame
-from LoadFiles import LoadFiles
+from FileManager.LoadFiles import LoadFiles
 from ScreenMixin import ScreenMixin
 
 class Round(ScreenMixin):
