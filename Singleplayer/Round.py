@@ -5,6 +5,7 @@ import random
 import pygame
 from FileManager.LoadFiles import LoadFiles
 from ScreenMixin import ScreenMixin
+from InvalidArgumentException import InvalidArgumentException
 
 class Round(ScreenMixin):
 
@@ -13,13 +14,13 @@ class Round(ScreenMixin):
         self.loaded_data = LoadFiles.load_questions(questions_path)
         if len(args)==1:
             self.player = args[0]
-            self.player_score = None
+            self.player_score = 0
             self.current_player=self.player
         elif len(args)==2:
             self.player1 = args[0]
             self.player2 = args[1]
-            self.player1_score = None
-            self.player2_score=None
+            self.player1_score =0
+            self.player2_score=0
             self.current_player=None
         else:
             raise IndexError("Too many players")
@@ -33,13 +34,15 @@ class Round(ScreenMixin):
         self.question_for_round=question_for_round
     
     def _choose_random_question(self,questions):
-        if not questions:
-            return None
+        if not questions or not isinstance(questions,list):
+            raise IndexError
 
         random_index = random.randrange(len(questions))
         return questions.pop(random_index)
     
     def _is_correct(self,answer,correct_answers):
+        if not isinstance(correct_answers,list) or not isinstance(answer,str):
+            raise InvalidArgumentException
         is_correct_answer=False
         for correct_answer in correct_answers:
             is_correct_answer = answer.lower() == correct_answer.lower()
@@ -48,6 +51,9 @@ class Round(ScreenMixin):
         return False
     
     def _save_answer(self,correct_answer):
+        if not isinstance(correct_answer,list):
+            raise InvalidArgumentException
+        
         if self.generated_questions<5:
             if len(self.answers)%5!=0:
                 self.offset-=self.answers[-1].rect.height+15
@@ -58,6 +64,8 @@ class Round(ScreenMixin):
             self.answers.append(Button(screen_width//2+185,screen_height//2-self.offset_upper_half,300,50,f"{self.generated_questions+1}) {', '.join([str(element) for element in correct_answer])}",lambda : None))
     
     def _render_intermediate_screen(self,screen):
+        if not isinstance(screen,pygame.surface.Surface):
+            raise InvalidArgumentException
         if not self.player_score:
                 self.player_score =  Button(screen_width//2-420,screen_height//2-120,200,50,f"Your score: {self.player.points}",lambda : None)
                 self.buttons.append(self.player_score)
@@ -69,6 +77,8 @@ class Round(ScreenMixin):
         pass
     
     def _render_interface(self,screen):
+        if not isinstance(screen,pygame.surface.Surface):
+            raise InvalidArgumentException
         screen.blit(self.background, (0, 0))
         for object in self.objects:
             object.draw(screen)
@@ -77,6 +87,7 @@ class Round(ScreenMixin):
          if self.found_answer is True:
             self.current_player.correct_answer(self.points_for_round)
             return True
+         return False
         
     def _handle_events(self,events):
         for event in events:
