@@ -1,6 +1,9 @@
 {
     "python.analysis.extraPaths": [
         "./Singleplayer",
-        "./Multiplayer"
+        "./Multiplayer",
+        "./Other",
+        "./Enums",
+        "./FileManager"
     ]
 }

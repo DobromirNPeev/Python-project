@@ -1,27 +1,32 @@
 import unittest
-import Singleplayer.Round
+import Round
 import pygame
 from Constants import FIRST_ROUND_QUESTION_PATH,POINTS_FOR_FIRST_ROUND,TIME_FOR_FIRST_ROUND,QUESTIONS_FOR_FIRST_ROUND,TERMINATED,VALID,SKIPPED,screen_height,screen_width
-from Singleplayer.SecondRound import SecondRound
+from SecondRound import SecondRound
 from Player import Player
-from FileManager.LoadFiles import LoadFiles
+from LoadFiles import LoadFiles
 from unittest.mock import patch,Mock
 from InvalidArgumentException import InvalidArgumentException
 from Button import Button
+from TextBoxForQuestions import TextBoxForQuestions
+
+class MockRound(Round):
+    def _create_interface(self):
+        return "Abstact method implemented"
 
 class TestRound(unittest.TestCase):
 
     def setUp(self):
         pygame.init()
         self.player=Player()
-        self.round_singleplayer=Singleplayer.Round.Round(FIRST_ROUND_QUESTION_PATH,lambda : SecondRound(Player()),
+        self.round_singleplayer=MockRound(FIRST_ROUND_QUESTION_PATH,lambda : None,
                          POINTS_FOR_FIRST_ROUND,
                          TIME_FOR_FIRST_ROUND,
                          QUESTIONS_FOR_FIRST_ROUND,
                          self.player)
         self.player1=Player()
         self.player2=Player()
-        self.round_multiplayer=Singleplayer.Round.Round(FIRST_ROUND_QUESTION_PATH,lambda : SecondRound(Player()),
+        self.round_multiplayer=MockRound(FIRST_ROUND_QUESTION_PATH,lambda : None,
                          POINTS_FOR_FIRST_ROUND,
                          TIME_FOR_FIRST_ROUND,
                          QUESTIONS_FOR_FIRST_ROUND,
@@ -33,7 +38,6 @@ class TestRound(unittest.TestCase):
                                                 'player' : self.player,
                                                 'player_score' : 0,
                                                 'current_player' : self.player,
-                                                'continue_button' : self.round_singleplayer.continue_button,
                                                 'offset_upper_half':260,
                                                 'offset':260,
                                                 'answers':[],
@@ -42,18 +46,17 @@ class TestRound(unittest.TestCase):
                                                 'points_for_round':POINTS_FOR_FIRST_ROUND,
                                                 'time_for_round':TIME_FOR_FIRST_ROUND,
                                                 'question_for_round':QUESTIONS_FOR_FIRST_ROUND}
-        
+        self.assertIsInstance(self.round_singleplayer.continue_button,Button)
         instance_attributes = vars(self.round_singleplayer)
         for attr_name, expected_value in expected_attributes_for_singleplayer.items():
             self.assertTrue(attr_name in instance_attributes)
             self.assertEqual(instance_attributes[attr_name], expected_value)
-        expected_attributes_for_singleplayer = {'loaded_data':self.loaded_data,
+        expected_attributes_for_multiplayer = {'loaded_data':self.loaded_data,
                                                 'player1' : self.player1,
                                                 'player2' : self.player2,
                                                 'player1_score' : 0,
                                                 'player2_score' : 0,
                                                 'current_player' : None,
-                                                'continue_button' : self.round_multiplayer.continue_button,
                                                 'offset_upper_half':260,
                                                 'offset':260,
                                                 'answers':[],
@@ -61,14 +64,15 @@ class TestRound(unittest.TestCase):
                                                 'generated_questions':0,
                                                 'points_for_round':POINTS_FOR_FIRST_ROUND,
                                                 'time_for_round':TIME_FOR_FIRST_ROUND,
-                                                'question_for_round':QUESTIONS_FOR_FIRST_ROUND}   
+                                                'question_for_round':QUESTIONS_FOR_FIRST_ROUND}
+        self.assertIsInstance(self.round_multiplayer.continue_button,Button)   
         instance_attributes = vars(self.round_multiplayer)
-        for attr_name, expected_value in expected_attributes_for_singleplayer.items():
+        for attr_name, expected_value in expected_attributes_for_multiplayer.items():
             self.assertTrue(attr_name in instance_attributes)
             self.assertEqual(instance_attributes[attr_name], expected_value)
 
         with self.assertRaises(IndexError):
-            self.round=Singleplayer.Round.Round(FIRST_ROUND_QUESTION_PATH,lambda : SecondRound(Player()),
+            self.round=MockRound(FIRST_ROUND_QUESTION_PATH,lambda : SecondRound(Player()),
                          POINTS_FOR_FIRST_ROUND,
                          TIME_FOR_FIRST_ROUND,
                          QUESTIONS_FOR_FIRST_ROUND,
@@ -175,7 +179,26 @@ class TestRound(unittest.TestCase):
         self.round_singleplayer.skip_button = Button(screen_width//2-65,screen_height//2+125,150,50,f"Skip",lambda: None)
         skip_event.pos = self.round_singleplayer.skip_button.rect.topleft
         self.assertEqual(SKIPPED,self.round_singleplayer._handle_events([skip_event]))
+        random_event=pygame.event.Event(pygame.ACTIVEEVENT)
+        self.round_singleplayer.type_area = TextBoxForQuestions(screen_width // 2-115, screen_height // 2+84,250,35,lambda : None,None)
+        self.assertEqual(VALID,self.round_singleplayer._handle_events([random_event]))
+        random_event_1 = pygame.event.Event(pygame.APP_DIDENTERFOREGROUND)
+        random_event_2 = pygame.event.Event(pygame.CONTROLLER_AXIS_LEFTY)
+        self.assertEqual(VALID,self.round_singleplayer._handle_events([random_event,random_event_1,random_event_2]))
+        self.assertEqual(VALID,self.round_singleplayer._handle_events([]))
+        self.assertEqual(None,self.round_singleplayer.found_answer)
 
+    def test_render(self):
+        self.round_singleplayer.generated_questions=self.round_singleplayer.question_for_round+1
+        with patch('Singleplayer.Round.Round._render_intermediate_screen') as mock_choice:
+            self.round_singleplayer.render(self.round_singleplayer.screen)
+            mock_choice.assert_called_once()
+            self.round_singleplayer.generated_questions=0
+        with self.assertRaises(InvalidArgumentException):
+            self.round_singleplayer.render(5)
+    
+    def test_abstract_method(self):
+        self.assertEqual("Abstact method implemented",self.round_singleplayer._create_interface())
 
 if __name__ == '__main__':
         unittest.main()

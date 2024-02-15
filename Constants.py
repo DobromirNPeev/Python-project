@@ -1,5 +1,5 @@
 from State import State
-from FileManager.FileCommands import FileCommands
+from FileCommands import FileCommands
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)

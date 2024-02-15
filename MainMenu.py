@@ -2,9 +2,9 @@ import pygame
 from Button import Button
 from ScreenMixin import ScreenMixin
 from Constants import screen_width,screen_height
-from Multiplayer.PregameScreenMultiplayer import PregameScreenMutliplayer
-from Singleplayer.PregameScreenSingleplayer import PregameScreenSingleplayer
-from AddQuestion.AddQuestionScreen import AddQuestionScreen
+from PregameScreenMultiplayer import PregameScreenMutliplayer
+from PregameScreenSingleplayer import PregameScreenSingleplayer
+from AddQuestionScreen import AddQuestionScreen
 
 WHITE = (255, 255, 255)
 
