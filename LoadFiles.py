@@ -3,6 +3,7 @@ import pydub
 import os
 import json
 from Constants import screen_height,screen_width
+from InvalidArgumentException import InvalidArgumentException
 
 class LoadFiles:
 
@@ -18,13 +19,15 @@ class LoadFiles:
             if file_type == "images":
                 element = pygame.image.load(path)
                 multimedia_data.append( {'question' : question, 'image': element, 'rect': element.get_rect(center=(screen_width // 2, screen_height // 2-150)), 'answer(s)': answers})
-            else:
+            elif file_type == 'audio-files':
                 element = pydub.AudioSegment.from_file(path)
                 multimedia_data.append( {'question' : question,'audio':element , 'answer(s)': answers})
         return multimedia_data
                 
     @staticmethod
     def load_questions(questions_path):
+        if not os.path.exists(questions_path):
+            raise InvalidArgumentException
         with open(questions_path, 'r') as file:
             loaded_data = json.load(file)
         return loaded_data

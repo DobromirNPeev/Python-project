@@ -31,12 +31,12 @@ QUESTIONS_FOR_FIFTH_ROUND=5
 
 TIME_FOR_LOADING_SCREEN=5000
 
-FIRST_ROUND_QUESTION_PATH=FileCommands.find_file_path('firstroundquestions.json')
-SECOND_ROUND_QUESTION_PATH=FileCommands.find_file_path('secondroundquestions.json')
-THIRD_ROUND_QUESTION_PATH=FileCommands.find_file_path('thirdroundquestions.json')
-FOURTH_ROUND_QUESTION_PATH=FileCommands.find_file_path('fourthroundquestions.json')
-FIFTH_ROUND_QUESTION_PATH=FileCommands.find_file_path('fifthroundquestions.json')
-BACKGROUND_PATH = FileCommands.find_file_path("background.png")
+FIRST_ROUND_QUESTION_PATH=FileCommands.find_file_path_in_current_directory('firstroundquestions.json')
+SECOND_ROUND_QUESTION_PATH=FileCommands.find_file_path_in_current_directory('secondroundquestions.json')
+THIRD_ROUND_QUESTION_PATH=FileCommands.find_file_path_in_current_directory('thirdroundquestions.json')
+FOURTH_ROUND_QUESTION_PATH=FileCommands.find_file_path_in_current_directory('fourthroundquestions.json')
+FIFTH_ROUND_QUESTION_PATH=FileCommands.find_file_path_in_current_directory('fifthroundquestions.json')
+BACKGROUND_PATH = FileCommands.find_file_path_in_current_directory("background.png")
 
 IMAGES_PATH=FileCommands.find_folder_path('images')
 AUDIO_PATH=FileCommands.find_folder_path('audio-files')

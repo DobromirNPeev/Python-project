@@ -2,12 +2,12 @@ import os
 import shutil
 
 class FileCommands:
+
     @staticmethod
-    def find_file_path(file_name):
-        for root, dirs, files in os.walk('.'):
+    def find_file_path_in_current_directory(file_name):
+        for root, _, files in os.walk('/'):
             if file_name in files:
                 return os.path.join(root, file_name)
-        return None
     
     @staticmethod
     def find_folder_path(folder_name):

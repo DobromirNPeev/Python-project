@@ -8,6 +8,7 @@ class TimeCountdown:
         self.elapsed_time = 0 
         self.font = pygame.font.Font(None, 36)
         self.screen=screen
+        self.remaining_seconds=0
     
     def tick(self):
         dt = self.clock.tick(60)
