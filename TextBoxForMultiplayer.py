@@ -9,7 +9,6 @@ class TextBoxForMultiplayer(TextBoxBase):
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
-            # If the user clicks on the text box, it becomes active
             if self.rect.collidepoint(event.pos):
                 self.active = not self.active
             else:
@@ -18,7 +17,6 @@ class TextBoxForMultiplayer(TextBoxBase):
         if event.type == pygame.KEYDOWN:
             if self.active:
                 if event.key == pygame.K_RETURN:
-                    print(self.text)
                     self.user.name=self.text
                     self.text = ''
                 elif event.key == pygame.K_BACKSPACE:

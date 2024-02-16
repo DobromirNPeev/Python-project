@@ -1,7 +1,5 @@
 import unittest
-from Constants import FOURTH_ROUND_QUESTION_PATH,POINTS_FOR_FOURTH_ROUND,TIME_FOR_FOURTH_ROUND,QUESTIONS_FOR_FOURTH_ROUND,TERMINATED,VALID,SKIPPED,screen_height,screen_width
 from FourthRound import FourthRound
-from FifthRound import FifthRound
 from Player import Player
 from Button import Button
 from TextBoxForQuestions import TextBoxForQuestions

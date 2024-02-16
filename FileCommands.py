@@ -12,9 +12,11 @@ class FileCommands:
     @staticmethod
     def find_folder_path(folder_name):
         current_directory = os.getcwd()
-        return os.path.join(current_directory, folder_name)
+        path = os.path.join(current_directory, folder_name)
+        if os.path.exists(path):
+            return path
     
         
     @staticmethod
-    def move_file(questions_path,folder_name):
-        shutil.move(questions_path,FileCommands.find_folder_path(folder_name))
+    def move_file(original_path,folder_name):
+        shutil.move(original_path,FileCommands.find_folder_path(folder_name))

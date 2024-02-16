@@ -1,6 +1,6 @@
 from Button import Button
 from TextBoxForMultiplayer import TextBoxForMultiplayer
-from Player import Player
+from Constants import TIME_FOR_LOADING_SCREEN
 from ScreenMixin import ScreenMixin
 from Constants import *
 from TimeCountdown import TimeCountdown
@@ -23,6 +23,6 @@ class PregameScreenMutliplayer(ScreenMixin):
         self.buttons=[self.enter_player1_name,self.enter_player1_textbox,self.enter_player2_name,self.enter_player2_textbox,self.ready,self.go_back]
 
     def start_game(self):
-        self.timer=TimeCountdown(5000,self.screen)
+        self.timer=TimeCountdown(TIME_FOR_LOADING_SCREEN,self.screen)
         self.timer.start_clock(self.background)
         return FirstRoundMultiplayer(self.user1,self.user2)    

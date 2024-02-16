@@ -39,6 +39,7 @@ class SecondRoundAddQuestion(AddQuestionMixin):
 
     @override
     def _save_data(self):
-        next_screen = super()._save_data()
-        FileCommands.move_file(self.original_path,IMAGES_PATH)
+        next_screen,successful = super()._save_data()
+        if successful:
+            FileCommands.move_file(self.original_path,IMAGES_PATH)
         return next_screen

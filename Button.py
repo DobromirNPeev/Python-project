@@ -17,7 +17,7 @@ class Button:
             for word in words[1:]:
                 test_line = current_line + " " + word
                 test_surface = self.font.render(test_line, True, BLACK)
-                if test_surface.get_width() <= self.width - 20:  # Subtract padding
+                if test_surface.get_width() <= self.width - 20:
                     current_line = test_line
                 else:
                     self.update_dimensions(current_line,self.lines)
@@ -26,7 +26,7 @@ class Button:
             self.lines.append(current_line)
 
     def update_dimensions(self,current_line,lines):
-        text_surface = self.font.render(current_line, True, BLACK)  # Set a minimum height
+        text_surface = self.font.render(current_line, True, BLACK)
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height+text_surface.get_height()+25*len(lines))
 
     def draw(self, screen):

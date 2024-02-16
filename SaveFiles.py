@@ -7,8 +7,8 @@ class SaveFiles:
         from AddQuestionScreen import AddQuestionScreen
         for element in data.values():
             if not element:
-                return AddQuestionScreen()    
+                return AddQuestionScreen(),False    
         loaded_data.append(data)
         with open(questions_path, "w") as json_file:
             json.dump(loaded_data, json_file)
-        return AddQuestionScreen()
+        return AddQuestionScreen(),True

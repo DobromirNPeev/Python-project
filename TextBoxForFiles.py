@@ -24,7 +24,6 @@ class TextBoxForFiles(TextBoxBase):
                         self.data[self.name].append(self.text)
                     else:
                         self.data[self.name]=copy.deepcopy(self.text)
-                    print(self.text)
                     self.text = ''
                 elif event.key == pygame.K_BACKSPACE:
                     self.text = self.text[:-1]

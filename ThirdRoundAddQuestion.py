@@ -40,6 +40,7 @@ class ThirdRoundAddQuestion(AddQuestionMixin):
     def _save_data(self):
         if self.audio:
             self.sound.stop()
-        next_screen = super()._save_data()
-        FileCommands.move_file(self.original_path,AUDIO_PATH)
+        next_screen,successful = super()._save_data()
+        if successful:
+            FileCommands.move_file(self.original_path,AUDIO_PATH)
         return next_screen
