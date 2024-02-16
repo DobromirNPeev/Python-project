@@ -8,27 +8,31 @@ from ScreenMixin import ScreenMixin
 from InvalidArgumentException import InvalidArgumentException
 from abc import ABC, abstractmethod
 
+
 class Round(ScreenMixin,ABC):
 
     def __init__(self,questions_path,next_round,points_for_round,time_for_round,question_for_round,*args):
+        from MainMenu import MainMenu
+        from Player import Player
         super().__init__()
         self.loaded_data = LoadFiles.load_questions(questions_path)
         if len(args)==1:
             self.player = args[0]
-            self.player_score = 0
+            self.player_score = None
             self.current_player=self.player
         elif len(args)==2:
             self.player1 = args[0]
             self.player2 = args[1]
-            self.player1_score =0
-            self.player2_score=0
+            self.player1_score = None
+            self.player2_score=None
             self.current_player=None
         else:
             raise IndexError("Too many players")
         self.continue_button = Button(screen_width//2-420,screen_height//2-60,200,50,"Continue",next_round)
+        self.go_back = Button(screen_width//2-420,screen_height//2,200,50,"Go back",lambda : MainMenu(Player()))
         self.offset_upper_half,self.offset=260,260
         self.answers=[]
-        self.buttons=[self.continue_button]
+        self.buttons=[self.continue_button,self.go_back]
         self.generated_questions=0
         self.points_for_round=points_for_round
         self.time_for_round=time_for_round

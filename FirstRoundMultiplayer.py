@@ -17,12 +17,13 @@ class FirstRoundMultiplayer(MultiplayerRound):
 
     @override
     def _create_interface(self):
-        self.player_turn=Button(screen_width//2 - 100,screen_height//2 - 210,300,50,f"{self.current_player.name}'s turn",lambda: None)
-        self.question_text = Button(screen_width//2-250,screen_height//2 - 150,750,50,self.random_question['question'],lambda: None)
-        self.choices_A = Button(screen_width//2 - 350,screen_height//2 - 75,450,50,f"A) {self.random_question['choices'][0]}",lambda: self._is_correct(self.random_question['choices'][0],self.random_question["answer(s)"]))
-        self.choices_B = Button(screen_width//2 + 125,screen_height//2 - 75,450,50,f"B) {self.random_question['choices'][1]}",lambda: self._is_correct(self.random_question['choices'][1],self.random_question["answer(s)"]))
-        self.choices_C = Button(screen_width//2 - 350,screen_height//2,450,50,f"C) {self.random_question['choices'][2]}",lambda: self._is_correct(self.random_question['choices'][2],self.random_question["answer(s)"]))
-        self.choices_D = Button(screen_width//2 + 125,screen_height//2,450,50,f"D) {self.random_question['choices'][3]}",lambda: self._is_correct(self.random_question['choices'][3],self.random_question["answer(s)"]))
+        self.player_turn=Button(screen_width//2 - 140,screen_height//2 - 240,300,50,f"{self.current_player.name}'s turn",lambda: None)
+        self.question_text = Button(screen_width//2-350,screen_height//2 - 175,750,50,self.random_question['question'],lambda: None)
+        self.question_text = Button(screen_width//2-350,screen_height//2-175,750,50,self.random_question['question'],lambda: None)
+        self.choices_A = Button(screen_width//2-450,screen_height//2-75,450,50,f"A) {self.random_question['choices'][0]}",lambda: self._is_correct(self.random_question['choices'][0],self.random_question["answer(s)"]))
+        self.choices_B = Button(screen_width//2+25,screen_height//2-75,450,50,f"B) {self.random_question['choices'][1]}",lambda: self._is_correct(self.random_question['choices'][1],self.random_question["answer(s)"]))
+        self.choices_C = Button(screen_width//2-450,screen_height//2,450,50,f"C) {self.random_question['choices'][2]}",lambda: self._is_correct(self.random_question['choices'][2],self.random_question["answer(s)"]))
+        self.choices_D = Button(screen_width//2+25,screen_height//2,450,50,f"D) {self.random_question['choices'][3]}",lambda: self._is_correct(self.random_question['choices'][3],self.random_question["answer(s)"]))
         self.skip_button= Button(screen_width//2 - 65,screen_height//2 + 125,150,50,f"Skip",lambda: None)
         self.objects=[self.question_text,self.player_turn,self.choices_A,self.choices_B,self.choices_C,self.choices_D,self.skip_button]
         self.found_answer = None

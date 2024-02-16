@@ -5,7 +5,7 @@ from Constants import screen_height,screen_width,SECOND_ROUND_QUESTION_PATH,IMAG
 from AddQuestionMixin import AddQuestionMixin
 from OpenFiles import OpenFiles
 from FileCommands import FileCommands
-import os
+from SaveFiles import SaveFiles
 
 class SecondRoundAddQuestion(AddQuestionMixin):
 
@@ -39,7 +39,7 @@ class SecondRoundAddQuestion(AddQuestionMixin):
 
     @override
     def _save_data(self):
-        next_screen,successful = super()._save_data()
+        next_screen,successful = SaveFiles.save_data(self.data,self.loaded_data,self.question_path)
         if successful:
             FileCommands.move_file(self.original_path,IMAGES_PATH)
         return next_screen

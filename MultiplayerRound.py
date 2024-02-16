@@ -28,6 +28,7 @@ class MultiplayerRound(Round):
                 self.player2_score =  Button(screen_width//2-420,screen_height//2-150,200,50,f"{self.player2.name}'s score: {self.player2.points}",lambda : None)
         screen.blit(self.background, (0, 0))
         self.continue_button.draw(screen)
+        self.go_back.draw(screen)
         self.player1_score.draw(screen)
         self.player2_score.draw(screen)
         for answer in self.answers:

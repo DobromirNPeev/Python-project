@@ -17,7 +17,7 @@ class FirstRound(Round):
     
     @override
     def _create_interface(self):
-          self.question_text = Button(screen_width//2-350,screen_height//2-150,750,50,self.random_question['question'],lambda: None)
+          self.question_text = Button(screen_width//2-350,screen_height//2-175,750,50,self.random_question['question'],lambda: None)
           self.choices_A = Button(screen_width//2-450,screen_height//2-75,450,50,f"A) {self.random_question['choices'][0]}",lambda: self._is_correct(self.random_question['choices'][0],self.random_question["answer(s)"]))
           self.choices_B = Button(screen_width//2+25,screen_height//2-75,450,50,f"B) {self.random_question['choices'][1]}",lambda: self._is_correct(self.random_question['choices'][1],self.random_question["answer(s)"]))
           self.choices_C = Button(screen_width//2-450,screen_height//2,450,50,f"C) {self.random_question['choices'][2]}",lambda: self._is_correct(self.random_question['choices'][2],self.random_question["answer(s)"]))

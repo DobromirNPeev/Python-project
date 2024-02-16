@@ -5,6 +5,7 @@ from Constants import screen_height,screen_width,THIRD_ROUND_QUESTION_PATH,AUDIO
 from AddQuestionMixin import AddQuestionMixin
 from OpenFiles import OpenFiles
 from FileCommands import FileCommands
+from SaveFiles import SaveFiles
 import pygame
 
 class ThirdRoundAddQuestion(AddQuestionMixin):
@@ -40,7 +41,7 @@ class ThirdRoundAddQuestion(AddQuestionMixin):
     def _save_data(self):
         if self.audio:
             self.sound.stop()
-        next_screen,successful = super()._save_data()
+        next_screen,successful = SaveFiles.save_data(self.data,self.loaded_data,self.question_path)
         if successful:
             FileCommands.move_file(self.original_path,AUDIO_PATH)
         return next_screen
