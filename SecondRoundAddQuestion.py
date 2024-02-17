@@ -6,6 +6,7 @@ from AddQuestionMixin import AddQuestionMixin
 from OpenFiles import OpenFiles
 from FileCommands import FileCommands
 from SaveFiles import SaveFiles
+import pygame
 
 class SecondRoundAddQuestion(AddQuestionMixin):
 
@@ -24,11 +25,17 @@ class SecondRoundAddQuestion(AddQuestionMixin):
         self.correct_answer=Button(screen_width//2-210,screen_height//2+100,200,50,"Correct answers:",lambda : None)
         self.type_correct_answer=TextBoxForFiles(screen_width//2,screen_height//2+110,200,50,"answer(s)",self.data)
         self.done=Button(screen_width//2-100,screen_height//2+200,200,50,"Done",lambda : self._save_data())
-        self.buttons=[self.question_input,self.type_question,self.correct_answer,self.type_correct_answer,self.done,self.open_image_button]
+        self.constraints=Button(screen_width//2-420,screen_height//2+70,200,50,f"Should have width less than {screen_width} and height less than {screen_height//2}",lambda : None)
+        self.buttons=[self.question_input,self.type_question,self.correct_answer,self.type_correct_answer,self.done,self.open_image_button,self.constraints]
         self.image = None
 
     def open_image(self):
         self.image,self.image_path,self.original_path=OpenFiles.open_image()
+        if self.image.get_width() > screen_width or self.image.get_height() > screen_height // 2:
+            self.image = None
+            self.image_path = None
+            self.original_path = None
+            return
         self.data['file_path']=self.image_path
     
     @override

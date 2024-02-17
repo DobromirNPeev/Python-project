@@ -10,5 +10,5 @@ class SaveFiles:
                 return AddQuestionScreen(),False    
         loaded_data.append(data)
         with open(questions_path, "w") as json_file:
-            json.dump(loaded_data, json_file)
+            json.dump(loaded_data, json_file,indent=4)
         return AddQuestionScreen(),True

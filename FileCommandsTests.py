@@ -2,6 +2,7 @@ import unittest
 from FileCommands import FileCommands
 from Constants import IMAGES_PATH
 import os
+import shutil
 
 class FileCommandTest(unittest.TestCase):
     
@@ -26,8 +27,8 @@ class FileCommandTest(unittest.TestCase):
         file_path = os.path.join(IMAGES_PATH, 'testimage.jpg')
         self.assertTrue(os.path.exists(file_path) and os.path.isfile(file_path))
         FileCommands.move_file('D:/Project/images/testimage.jpg','D:/Project/')
-        
-
+        with self.assertRaises(shutil.Error):
+            FileCommands.move_file('D:/Project/testimage.jpg','D:/Project/')
 
 if __name__ == '__main__':
     unittest.main()

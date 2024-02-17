@@ -15,8 +15,8 @@ class FirstRoundAddQuestion(AddQuestionMixin):
         self.data={"question": "",
                    "choices": [],
                     "answer(s)": []}
-        self.question_input=Button(screen_width//2-210,screen_height//2-150,200,50,"Question input:",lambda : None)
-        self.type_question=TextBoxForFiles(screen_width//2,screen_height//2-140,200,50,"question",self.data)
+        self.question_input=Button(screen_width//2-420,screen_height//2-150,200,50,"Question input:",lambda : None)
+        self.type_question=TextBoxForFiles(screen_width//2-210,screen_height//2-140,200,50,"question",self.data)
         self.answers_input=Button(screen_width//2-100,screen_height//2-70,200,50,"Answers input:",lambda : None)
         self.type_answer_A=TextBoxForFiles(screen_width//2-420,screen_height//2+30,200,50,"choices",self.data)
         self.type_answer_B=TextBoxForFiles(screen_width//2-210,screen_height//2+30,200,50,"choices",self.data)

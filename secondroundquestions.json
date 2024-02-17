@@ -1,1 +1,84 @@
-[{"question": "Who is that comedian ?", "file_path": "ivankirkov.jpg", "answer(s)": ["Ivan Kirkov", "Papata"]}, {"question": "Who is that ReGex master?", "file_path": "viktorbechev.jpg", "answer(s)": ["Viktor Bechev"]}, {"question": "Who is that historcial figure ?", "file_path": "napoleon.jpg", "answer(s)": ["Napoleon", "Napoleon Bonaparte"]}, {"question": "Who is that bulgarian singer ?", "file_path": "grafa.jpg", "answer(s)": ["Grafa", "Vladimir Ampov"]}, {"question": "Who is that Java hater ?", "file_path": "georgikunchev.jpg", "answer(s)": ["Georgi Kunchev"]}, {"question": "Who is that Roman emperor ?", "file_path": "ceaser.jpg", "answer(s)": ["Ceaser", "Julius Ceaser"]}, {"question": "Who is that bulgarian singer/politician ?", "file_path": "slavitrifonov.jpg", "answer(s)": ["Slavi Trifonov"]}, {"question": "Who is that bulgarian politician ?", "file_path": "tsvetantsvetanov.jpg", "answer(s)": ["Tsvetan Tsvetanov"]}, {"question": "Who painted that picture ?", "file_path": "vangogh.jpg", "answer(s)": ["Van Gogh"]}, {"question": "Who is that wrestler/actor ?", "file_path": "therock.jpg", "answer(s)": ["The Rock", "Dwayne johnson"]}, {"question": "Who is that bulgarian singer ?", "file_path": "azis.jpg", "answer(s)": ["Azis"]}, {"question": "yyt", "file_path": "download (11).jpg", "answer(s)": ["yjtjy"]}]
+[
+    {
+        "question": "Who is that comedian ?",
+        "file_path": "ivankirkov.jpg",
+        "answer(s)": [
+            "Ivan Kirkov",
+            "Papata"
+        ]
+    },
+    {
+        "question": "Who is that ReGex master?",
+        "file_path": "viktorbechev.jpg",
+        "answer(s)": [
+            "Viktor Bechev"
+        ]
+    },
+    {
+        "question": "Who is that historcial figure ?",
+        "file_path": "napoleon.jpg",
+        "answer(s)": [
+            "Napoleon",
+            "Napoleon Bonaparte"
+        ]
+    },
+    {
+        "question": "Who is that bulgarian singer ?",
+        "file_path": "grafa.jpg",
+        "answer(s)": [
+            "Grafa",
+            "Vladimir Ampov"
+        ]
+    },
+    {
+        "question": "Who is that Java hater ?",
+        "file_path": "georgikunchev.jpg",
+        "answer(s)": [
+            "Georgi Kunchev"
+        ]
+    },
+    {
+        "question": "Who is that Roman emperor ?",
+        "file_path": "ceaser.jpg",
+        "answer(s)": [
+            "Ceaser",
+            "Julius Ceaser"
+        ]
+    },
+    {
+        "question": "Who is that bulgarian singer/politician ?",
+        "file_path": "slavitrifonov.jpg",
+        "answer(s)": [
+            "Slavi Trifonov"
+        ]
+    },
+    {
+        "question": "Who is that bulgarian politician ?",
+        "file_path": "tsvetantsvetanov.jpg",
+        "answer(s)": [
+            "Tsvetan Tsvetanov"
+        ]
+    },
+    {
+        "question": "Who painted that picture ?",
+        "file_path": "vangogh.jpg",
+        "answer(s)": [
+            "Van Gogh"
+        ]
+    },
+    {
+        "question": "Who is that wrestler/actor ?",
+        "file_path": "therock.jpg",
+        "answer(s)": [
+            "The Rock",
+            "Dwayne johnson"
+        ]
+    },
+    {
+        "question": "Who is that bulgarian singer ?",
+        "file_path": "azis.jpg",
+        "answer(s)": [
+            "Azis"
+        ]
+    }
+]
