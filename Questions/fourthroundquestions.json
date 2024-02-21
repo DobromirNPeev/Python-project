@@ -75,5 +75,28 @@
         "George Orwell"
       ],
       "needed_answers": 1
+    },
+    {  "question" : "Could you identify three prominent plays written by Anton Chekhov?",
+      "answer(s)": [
+      "The Cherry Orchard",
+      "The Seagull",
+      "Uncle Vanya",
+      "Three Sisters",
+      "The Bear",
+      "Ivanov"
+      ],
+      "needed_answers" : 3
+    },
+    {
+      "question": "Can you name three famous novels written by Jane Austen?",
+      "answer(s)": [
+        "Pride and Prejudice",
+        "Sense and Sensibility",
+        "Emma",
+        "Mansfield Park",
+        "Persuasion",
+        "Northanger Abbey"
+      ],
+      "needed_answers": 3
     }
   ]

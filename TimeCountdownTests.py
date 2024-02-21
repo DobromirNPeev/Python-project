@@ -10,10 +10,10 @@ class TimeCountdownTests(unittest.TestCase):
         pygame.init()
         self.background = pygame.image.load(BACKGROUND_PATH)
         self.screen = pygame.display.set_mode((screen_width, screen_height))
-        self.timer=TimeCountdown(2000,self.screen)
+        self.timer = TimeCountdown(2000,self.screen)
     
     def test_tick(self):
-        original_elapsed_time=self.timer.elapsed_time
+        original_elapsed_time = self.timer.elapsed_time
         self.timer.tick()
         self.assertNotEqual(original_elapsed_time,self.timer.elapsed_time+1)
         self.assertIn('remaining_seconds',vars(self.timer))
@@ -26,7 +26,6 @@ class TimeCountdownTests(unittest.TestCase):
         self.assertTrue(self.timer)
 
     def test_start_clock(self):
-        
         start_time = time.time()
         self.timer.start_clock(self.background)
         current_time = time.time()

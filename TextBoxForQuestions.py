@@ -4,15 +4,16 @@ from InvalidArgumentException import InvalidArgumentException
 import inspect
 import pygame
 
+
 class TextBoxForQuestions(TextBoxBase):
 
-    def __init__(self, x, y, width, height,action,correct_answer):
+    def __init__(self, x, y, width, height, action, correct_answer):
         super().__init__(x,y,width,height)
         signature = inspect.signature(action)
         if len(signature.parameters) != 2:
             raise InvalidArgumentException
-        self.action=action
-        self.correct_answer=correct_answer
+        self.action = action
+        self.correct_answer = correct_answer
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:

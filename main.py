@@ -1,5 +1,5 @@
 import pygame
-from GameScreens.MainMenu import MainMenu
+from MainMenu import MainMenu
 from Player import Player
 from ScreenMixin import ScreenMixin
 

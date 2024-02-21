@@ -18,20 +18,20 @@ class TestRound(unittest.TestCase):
 
     def setUp(self):
         pygame.init()
-        self.player=Player()
-        self.round_singleplayer=MockRound(FIRST_ROUND_QUESTION_PATH,lambda : None,
+        self.player = Player()
+        self.round_singleplayer = MockRound(FIRST_ROUND_QUESTION_PATH,lambda : None,
                          POINTS_FOR_FIRST_ROUND,
                          TIME_FOR_FIRST_ROUND,
                          QUESTIONS_FOR_FIRST_ROUND,
                          self.player)
-        self.player1=Player()
-        self.player2=Player()
-        self.round_multiplayer=MockRound(FIRST_ROUND_QUESTION_PATH,lambda : None,
+        self.player1 = Player()
+        self.player2 = Player()
+        self.round_multiplayer = MockRound(FIRST_ROUND_QUESTION_PATH,lambda : None,
                          POINTS_FOR_FIRST_ROUND,
                          TIME_FOR_FIRST_ROUND,
                          QUESTIONS_FOR_FIRST_ROUND,
                          self.player1,self.player2)
-        self.loaded_data=LoadFiles.load_questions(FIRST_ROUND_QUESTION_PATH)
+        self.loaded_data = LoadFiles.load_questions(FIRST_ROUND_QUESTION_PATH)
 
     def test_init(self):
         expected_attributes_for_singleplayer = {'loaded_data':self.loaded_data,
@@ -80,16 +80,16 @@ class TestRound(unittest.TestCase):
             
     @patch('random.randrange')
     def test_choose_random_question(self,mock_choice):
-        expected_result={ "question": "What is the capital of France?","choices": ["Berlin","Madrid","Paris","Rome"],"answer(s)": [ "Paris" ]}
-        mock_choice.return_value=0
+        expected_result = { "question": "What is the capital of France?","choices": ["Berlin","Madrid","Paris","Rome"],"answer(s)": [ "Paris" ]}
+        mock_choice.return_value = 0
         original_length = len(self.round_singleplayer.loaded_data)
         result = self.round_singleplayer._choose_random_question(self.round_singleplayer.loaded_data)
         self.assertEqual(result, expected_result)
         mock_choice.assert_called_with(original_length)
 
-        self.round_singleplayer.loaded_data= [{"question": "Which planet is known as the Red Planet?","choices": ["Venus","Mars","Jupiter","Saturn"],"answer(s)": ["Mars"]}]
-        expected_result={"question": "Which planet is known as the Red Planet?","choices": ["Venus","Mars","Jupiter","Saturn"],"answer(s)": ["Mars"]}
-        mock_choice.return_value=0
+        self.round_singleplayer.loaded_data = [{"question": "Which planet is known as the Red Planet?","choices": ["Venus","Mars","Jupiter","Saturn"],"answer(s)": ["Mars"]}]
+        expected_result = {"question": "Which planet is known as the Red Planet?","choices": ["Venus","Mars","Jupiter","Saturn"],"answer(s)": ["Mars"]}
+        mock_choice.return_value = 0
         original_length = len(self.round_singleplayer.loaded_data)
         result = self.round_singleplayer._choose_random_question(self.round_singleplayer.loaded_data)
         self.assertEqual(result, expected_result)
@@ -124,7 +124,7 @@ class TestRound(unittest.TestCase):
         self.random_question = self.round_singleplayer._choose_random_question(self.round_singleplayer.loaded_data)
         correct_answers = self.random_question["answer(s)"]
         self.round_singleplayer._save_answer(correct_answers)
-        self.round_singleplayer.generated_questions+=1
+        self.round_singleplayer.generated_questions += 1
         self.assertNotEqual(self.round_singleplayer.offset,260)
         for _ in range(5):
             self.random_question = self.round_singleplayer._choose_random_question(self.round_singleplayer.loaded_data)
@@ -161,11 +161,11 @@ class TestRound(unittest.TestCase):
             self.round_singleplayer._render_intermediate_screen(5)
 
     def test_check_for_correct_answer(self):
-        self.round_singleplayer.found_answer=True
+        self.round_singleplayer.found_answer = True
         original_points = self.round_singleplayer.current_player.points
         self.assertTrue(self.round_singleplayer._check_for_correct_answer())
         self.assertEqual(original_points+self.round_singleplayer.points_for_round,self.round_singleplayer.current_player.points)
-        self.round_singleplayer.found_answer=False
+        self.round_singleplayer.found_answer = False
         original_points = self.round_singleplayer.current_player.points
         self.assertFalse(self.round_singleplayer._check_for_correct_answer())
         self.assertEqual(original_points,self.round_singleplayer.current_player.points)
@@ -174,12 +174,12 @@ class TestRound(unittest.TestCase):
         quit_event = pygame.event.Event(pygame.QUIT)
         self.assertEqual(TERMINATED,self.round_singleplayer._handle_events([quit_event]))
         pygame.init()
-        skip_event=pygame.event.Event(pygame.MOUSEBUTTONDOWN)
-        skip_event.button=1
+        skip_event = pygame.event.Event(pygame.MOUSEBUTTONDOWN)
+        skip_event.button = 1
         self.round_singleplayer.skip_button = Button(screen_width//2-65,screen_height//2+125,150,50,f"Skip",lambda: None)
         skip_event.pos = self.round_singleplayer.skip_button.rect.topleft
         self.assertEqual(SKIPPED,self.round_singleplayer._handle_events([skip_event]))
-        random_event=pygame.event.Event(pygame.ACTIVEEVENT)
+        random_event = pygame.event.Event(pygame.ACTIVEEVENT)
         self.round_singleplayer.type_area = TextBoxForQuestions(screen_width // 2-115, screen_height // 2+84,250,35,lambda x,y: x+y,None)
         self.assertEqual(VALID,self.round_singleplayer._handle_events([random_event]))
         random_event_1 = pygame.event.Event(pygame.APP_DIDENTERFOREGROUND)

@@ -15,17 +15,17 @@ class SecondRoundAddQuestion(AddQuestionMixin):
     
     @override
     def _create_interface(self):
-        self.data={"question": "",
+        self.data = {"question": "",
                    "file_path": '',
                     "answer(s)": []}
-        self.open_image_button=Button(screen_width//2-420,screen_height//2+10,200,50,"Open image",lambda : self.open_image())
-        self.question_input=Button(screen_width//2-210,screen_height//2,200,50,"Question input:",lambda : None)
-        self.type_question=TextBoxForFiles(screen_width//2,screen_height//2+10,200,50,"question",self.data)
-        self.correct_answer=Button(screen_width//2-210,screen_height//2+100,200,50,"Correct answers:",lambda : None)
-        self.type_correct_answer=TextBoxForFiles(screen_width//2,screen_height//2+110,200,50,"answer(s)",self.data)
-        self.done=Button(screen_width//2-100,screen_height//2+200,200,50,"Done",lambda : self._save_data())
-        self.constraints=Button(screen_width//2-420,screen_height//2+70,200,50,f"Should have width less than {screen_width} and height less than {screen_height//2}",lambda : None)
-        self.buttons=[self.question_input,self.type_question,self.correct_answer,self.type_correct_answer,self.done,self.open_image_button,self.constraints]
+        self.open_image_button = Button(screen_width//2-420,screen_height//2+10,200,50,"Open image",lambda : self.open_image())
+        self.question_input = Button(screen_width//2-210,screen_height//2,200,50,"Question input:",lambda : None)
+        self.type_question = TextBoxForFiles(screen_width//2,screen_height//2+10,200,50,"question",self.data)
+        self.correct_answer = Button(screen_width//2-210,screen_height//2+100,200,50,"Correct answers:",lambda : None)
+        self.type_correct_answer = TextBoxForFiles(screen_width//2,screen_height//2+110,200,50,"answer(s)",self.data)
+        self.done = Button(screen_width//2-100,screen_height//2+200,200,50,"Done",lambda : self._save_data())
+        self.constraints = Button(screen_width//2-420,screen_height//2+70,200,50,f"Should have width less than {screen_width} and height less than {screen_height//2}",lambda : None)
+        self.buttons = [self.question_input,self.type_question,self.correct_answer,self.type_correct_answer,self.done,self.open_image_button,self.constraints]
         self.image = None
 
     def open_image(self):
@@ -46,6 +46,6 @@ class SecondRoundAddQuestion(AddQuestionMixin):
     @override
     def _save_data(self):
         next_screen,successful = SaveFiles.save_data(self.data,self.loaded_data,self.question_path)
-        if successful:
+        if successful and not FileCommands.find_file_path_in_current_directory(self.image_path):
             FileCommands.move_file(self.original_path,IMAGES_PATH)
         return next_screen

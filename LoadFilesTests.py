@@ -14,7 +14,7 @@ class LoadFilesTests(unittest.TestCase):
             LoadFiles.load_questions(56)
         with self.assertRaises(ValueError):
             LoadFiles.load_questions('D:/Project/Multiplayer/FourthRoundMultiplayer.py')
-        loaded_files=LoadFiles.load_questions(FIRST_ROUND_QUESTION_PATH)
+        loaded_files = LoadFiles.load_questions(FIRST_ROUND_QUESTION_PATH)
         self.assertEqual(loaded_files,[
                                         {
                                             "question": "What is the capital of France?",
@@ -189,24 +189,24 @@ class LoadFilesTests(unittest.TestCase):
             LoadFiles._LoadFiles__load_multimedia_data({'question':5,'random':9,'answer(s)':8},IMAGES_PATH, 'images')
         with self.assertRaises(BaseException):
             LoadFiles._LoadFiles__load_multimedia_data({'question':5,'random':9,'answer(s)':8},'random', 'images')
-        self.questions=[]
-        self.answers=[]
+        self.questions = []
+        self.answers = []
         for entry in loaded_data:
             self.questions.append(entry['question'])
             self.answers.append(entry['answer(s)'])
-        multimedia_data=LoadFiles._LoadFiles__load_multimedia_data(loaded_data,IMAGES_PATH, 'images')
+        multimedia_data = LoadFiles._LoadFiles__load_multimedia_data(loaded_data,IMAGES_PATH, 'images')
         for element in multimedia_data:
             self.assertIn(element['question'],self.questions)
             self.assertIsInstance(element['image'],pygame.Surface)
             self.assertIsInstance(element['rect'],pygame.Rect)
             self.assertIn(element['answer(s)'],self.answers)
         loaded_data = LoadFiles.load_questions(THIRD_ROUND_QUESTION_PATH)
-        self.questions=[]
-        self.answers=[]
+        self.questions = []
+        self.answers = []
         for entry in loaded_data:
             self.questions.append(entry['question'])
             self.answers.append(entry['answer(s)'])
-        multimedia_data=LoadFiles._LoadFiles__load_multimedia_data(loaded_data,AUDIO_PATH, 'audio-files')
+        multimedia_data = LoadFiles._LoadFiles__load_multimedia_data(loaded_data,AUDIO_PATH, 'audio-files')
         for element in multimedia_data:
             self.assertIn(element['question'],self.questions)
             self.assertIsInstance(element['audio'],pydub.AudioSegment)

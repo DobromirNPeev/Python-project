@@ -12,9 +12,9 @@ class SecondRoundTests(unittest.TestCase):
         self.second_round=SecondRound(Player())
         
     def test_create_interface(self):
-        self.second_round.random_question=self.second_round._choose_random_question(self.second_round.loaded_data)
+        self.second_round.random_question = self.second_round._choose_random_question(self.second_round.loaded_data)
         self.second_round.correct_answers = self.second_round.random_question["answer(s)"]
-        original_generated_questions=self.second_round.generated_questions
+        original_generated_questions = self.second_round.generated_questions
         self.second_round._create_interface()
         expected_attributes_for_singleplayer = {
                                                 'objects':[self.second_round.question_text,self.second_round.skip_button,self.second_round.type_area],

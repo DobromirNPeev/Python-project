@@ -144,7 +144,7 @@
         ]
     },
     {
-        "question": "Who performs the song 'Vmesto men ?",
+        "question": "Who performs the song 'Vmesto men' ?",
         "choices": [
             "Kaffe",
             "Te",
@@ -153,6 +153,18 @@
         ],
         "answer(s)": [
             "Kaffe"
+        ]
+    },
+    {
+        "question": "Who is the author of 'Gulliver's adventures' ?",
+        "choices": [
+            "Jane Austin",
+            "Dan Brown",
+            "Jonathan Swift",
+            "Agatha Kristi"
+        ],
+        "answer(s)": [
+            "Jonathan Swift"
         ]
     }
 ]

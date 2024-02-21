@@ -7,19 +7,19 @@ class MultiplayerRound(Round):
     
     def __init__(self,questions_path,next_round,points_for_round,time_for_round,question_for_round,*args):
         super().__init__(questions_path,next_round,points_for_round,time_for_round,question_for_round,*args)
-        self.half=self.question_for_round//2
+        self.half = self.question_for_round//2
 
     def _save_answer(self, correct_answer):
         if self.generated_questions<self.half:
-            if len(self.answers)%self.half!=0:
-                self.offset-=self.answers[-1].rect.height+15
+            if len(self.answers)%self.half != 0:
+                self.offset -= self.answers[-1].rect.height+15
             self.answers.append(Button(screen_width//2-175,screen_height//2-self.offset,300,50,f"{self.generated_questions+1}) {', '.join([str(element) for element in correct_answer])}",lambda : None))
-            self.current_player=self.player1
+            self.current_player = self.player1
         else:
-            if len(self.answers)%self.half!=0:
-                self.offset_upper_half-=self.answers[-1].rect.height+15
+            if len(self.answers)%self.half != 0:
+                self.offset_upper_half -= self.answers[-1].rect.height+15
             self.answers.append(Button(screen_width//2+185,screen_height//2-self.offset_upper_half,300,50,f"{self.generated_questions+1}) {', '.join([str(element) for element in correct_answer])}",lambda : None))
-            self.current_player=self.player2
+            self.current_player = self.player2
 
     @override
     def _render_intermediate_screen(self,screen):

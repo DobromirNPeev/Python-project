@@ -9,12 +9,12 @@ class ThirdRoundTest(unittest.TestCase):
 
     def setUp(self):
         pygame.init()
-        self.third_round=ThirdRound(Player())
+        self.third_round = ThirdRound(Player())
         
     def test_create_interface(self):
-        self.third_round.random_question=self.third_round._choose_random_question(self.third_round.loaded_data)
+        self.third_round.random_question = self.third_round._choose_random_question(self.third_round.loaded_data)
         self.third_round.correct_answers = self.third_round.random_question["answer(s)"]
-        original_generated_questions=self.third_round.generated_questions
+        original_generated_questions = self.third_round.generated_questions
         self.third_round._create_interface()
         expected_attributes_for_singleplayer = {
                                                 'objects':[self.third_round.question_text,self.third_round.skip_button,self.third_round.type_area],

@@ -8,7 +8,7 @@ class OpenFilesTest(unittest.TestCase):
     def test_open_audio(self):
         image,basepath,path = OpenFiles.open_image()
         found_path = FileCommands.find_file_path_in_current_directory(basepath)
-        changed_path=''
+        changed_path = ''
         print(found_path)
         for character in found_path:
             if character == '\\':

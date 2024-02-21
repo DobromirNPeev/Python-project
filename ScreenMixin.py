@@ -1,7 +1,9 @@
 import pygame
 from Constants import screen_width,screen_height,WHITE,BACKGROUND_PATH
 
+
 class ScreenMixin:
+    
     def __init__(self):
         self.font = pygame.font.Font(None, 36)
         self.screen = pygame.display.set_mode((screen_width, screen_height))

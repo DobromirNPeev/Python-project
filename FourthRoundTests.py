@@ -10,15 +10,15 @@ class FourthRoundTests(unittest.TestCase):
         def setUp(self):
             pygame.init()
             self.fourth_round=FourthRound(Player())
-            self.fourth_round.random_question=self.fourth_round._choose_random_question(self.fourth_round.loaded_data)
+            self.fourth_round.random_question = self.fourth_round._choose_random_question(self.fourth_round.loaded_data)
             self.fourth_round.correct_answers = self.fourth_round.random_question["answer(s)"]
     
         def test_create_interface(self):
-            original_generated_questions=self.fourth_round.generated_questions
+            original_generated_questions = self.fourth_round.generated_questions
             self.fourth_round._create_interface()
             expected_attributes_for_singleplayer = {'needed_answers':self.fourth_round.random_question['needed_answers'],
                                                     'correct_answered':0,
-                                                    'objects':[self.fourth_round.question_text,self.fourth_round.skip_button,self.fourth_round.type_area],
+                                                    'objects':[self.fourth_round.question_text,self.fourth_round.skip_button,self.fourth_round.type_area,self.fourth_round.left_to_answer],
                                                     'found_answer' : None,
                                                     'generated_questions':original_generated_questions+1
                                                     }

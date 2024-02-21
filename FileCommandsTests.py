@@ -9,12 +9,13 @@ class FileCommandTest(unittest.TestCase):
     def test_find_file_path_in_current_directory(self):
         self.assertIsNone(FileCommands.find_file_path_in_current_directory('something.json'))
         found_path = FileCommands.find_file_path_in_current_directory('testfile.json')
+        print(FileCommands.find_file_path_in_current_directory('download (11).jpg'))
         changed_path=''
         for character in found_path:
             if character == '\\':
                 changed_path += '/'
                 continue
-            changed_path +=character
+            changed_path += character
         self.assertEqual('/Project/testfile.json',changed_path)
         self.assertIsNone(FileCommands.find_file_path_in_current_directory('420179369_780533263918099_7250403426819783222_n.jpg'))
 

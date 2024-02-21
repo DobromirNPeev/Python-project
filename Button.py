@@ -4,8 +4,8 @@ from Constants import BLACK,GRAY
 class Button:
 
     def __init__(self, x, y, width, height, text, action):
-        self.x,self.y=x,y
-        self.width,self.height=width,height
+        self.x,self.y = x,y
+        self.width,self.height = width,height
         self.rect = pygame.Rect(x, y, width, height)
         self.text = text
         self.action = action
@@ -13,7 +13,7 @@ class Button:
         if text:
             words = self.text.split()
             current_line = words[0]
-            self.lines=[]
+            self.lines = []
             for word in words[1:]:
                 test_line = current_line + " " + word
                 test_surface = self.font.render(test_line, True, BLACK)

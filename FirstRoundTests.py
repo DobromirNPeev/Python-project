@@ -13,9 +13,9 @@ class TestFirstRound(unittest.TestCase):
         self.first_round=FirstRound(Player())
         
     def test_create_interface(self):
-        self.first_round.random_question=self.first_round._choose_random_question(self.first_round.loaded_data)
+        self.first_round.random_question = self.first_round._choose_random_question(self.first_round.loaded_data)
         self.first_round.correct_answers = self.first_round.random_question["answer(s)"]
-        original_generated_questions=self.first_round.generated_questions
+        original_generated_questions = self.first_round.generated_questions
         self.first_round._create_interface()
         expected_attributes_for_singleplayer = {
                                                 'objects' : [self.first_round.choices_A,self.first_round.choices_B,self.first_round.choices_C,self.first_round.choices_D,self.first_round.skip_button,self.first_round.question_text],
@@ -40,12 +40,12 @@ class TestFirstRound(unittest.TestCase):
         quit_event = pygame.event.Event(pygame.QUIT)
         self.assertEqual(TERMINATED,self.first_round._handle_events([quit_event]))
         pygame.init()
-        skip_event=pygame.event.Event(pygame.MOUSEBUTTONDOWN)
-        skip_event.button=1
+        skip_event = pygame.event.Event(pygame.MOUSEBUTTONDOWN)
+        skip_event.button = 1
         self.first_round._create_interface()
         skip_event.pos = self.first_round.skip_button.rect.topleft
         self.assertEqual(SKIPPED,self.first_round._handle_events([skip_event]))
-        choice_event=pygame.event.Event(pygame.MOUSEBUTTONDOWN)
+        choice_event = pygame.event.Event(pygame.MOUSEBUTTONDOWN)
         choice_event.button=1
         choice_event.pos = self.first_round.choices_A.rect.topleft
         self.assertEqual(VALID,self.first_round._handle_events([choice_event]))

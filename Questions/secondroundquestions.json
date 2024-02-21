@@ -80,5 +80,40 @@
         "answer(s)": [
             "Azis"
         ]
+    },
+    {
+        "question": "Who is that tennis player ?",
+        "file_path": "download (11).jpg",
+        "answer(s)": [
+            "Serena Williams"
+        ]
+    },
+    {
+        "question": "Who is that actor ?",
+        "file_path": "leo.jpg",
+        "answer(s)": [
+            "Leonardo Dicaprio"
+        ]
+    },
+    {
+        "question": "In which year was he born ?",
+        "file_path": "leo.jpg",
+        "answer(s)": [
+            "1974"
+        ]
+    },
+    {
+        "question": "What is her father's name ?",
+        "file_path": "download (11).jpg",
+        "answer(s)": [
+            "Richard"
+        ]
+    },
+    {
+        "question": "Which university is that ?",
+        "file_path": "fmi.jpg",
+        "answer(s)": [
+            "FMI"
+        ]
     }
 ]

@@ -17,13 +17,13 @@ class FifthRoundMultiplayer(MultiplayerRound):
     
     @override
     def _create_interface(self):
-            self.player_turn=Button(screen_width//2 - 115,screen_height//2 + 225,250,50,f"{self.current_player.name}'s turn",lambda: None)
-            self.question_text = Button(screen_width//2 - 230, screen_height//2 - 175,500,50,self.random_question['question'],lambda: None)
+            self.player_turn = Button(screen_width//2 - 115,screen_height//2 + 225,250,50,f"{self.current_player.name}'s turn",lambda: None)
+            self.question_text = Button(screen_width//2 - 230, screen_height//2 - 175,500,50,f"{self.generated_questions+1}) {self.random_question['question']}",lambda: None)
             self.type_area = TextBoxForQuestions(screen_width//2 - 115, screen_height//2 + 84,250,35,self._is_correct,self.random_question["answer(s)"])
-            self.skip_button= Button(screen_width//2 - 65,screen_height//2 + 125,150,50,f"Skip",lambda: None)
-            self.objects=[self.player_turn,self.question_text,self.skip_button,self.type_area]
+            self.skip_button = Button(screen_width//2 - 65,screen_height//2 + 125,150,50,f"Skip",lambda: None)
+            self.objects = [self.player_turn,self.question_text,self.skip_button,self.type_area]
             self.found_answer = None
-            self.generated_questions+=1
+            self.generated_questions += 1
 
     @override
     def _render_intermediate_screen(self, screen):

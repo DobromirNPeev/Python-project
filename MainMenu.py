@@ -15,5 +15,5 @@ class MainMenu(ScreenMixin):
         multiplayer = Button(screen_width//2-100,screen_height//2+25,200,50,"Multiplayer",lambda : PregameScreenMutliplayer())
         add_quesiton = Button(screen_width//2-100,screen_height//2+100,200,50,"Add question",lambda : AddQuestionScreen())
         exit = Button(screen_width//2-100,screen_height//2+175,200,50,"Exit",lambda: pygame.quit())
-        self.buttons=[self.singleplayer,multiplayer,add_quesiton,exit]
+        self.buttons = [self.singleplayer,multiplayer,add_quesiton,exit]
         self.player = player
