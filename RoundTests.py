@@ -1,14 +1,14 @@
-import unittest
-import Round
-import pygame
+from Round import Round
 from Constants import FIRST_ROUND_QUESTION_PATH,POINTS_FOR_FIRST_ROUND,TIME_FOR_FIRST_ROUND,QUESTIONS_FOR_FIRST_ROUND,TERMINATED,VALID,SKIPPED,screen_height,screen_width
 from SecondRound import SecondRound
 from Player import Player
 from LoadFiles import LoadFiles
-from unittest.mock import patch,Mock
 from InvalidArgumentException import InvalidArgumentException
 from Button import Button
 from TextBoxForQuestions import TextBoxForQuestions
+import pygame
+from unittest.mock import patch,Mock
+import unittest
 
 class MockRound(Round):
     def _create_interface(self):
@@ -36,12 +36,12 @@ class TestRound(unittest.TestCase):
     def test_init(self):
         expected_attributes_for_singleplayer = {'loaded_data':self.loaded_data,
                                                 'player' : self.player,
-                                                'player_score' : 0,
+                                                'player_score' : None,
                                                 'current_player' : self.player,
                                                 'offset_upper_half':260,
                                                 'offset':260,
                                                 'answers':[],
-                                                'buttons':[self.round_singleplayer.continue_button],
+                                                'buttons':[self.round_singleplayer.continue_button,self.round_singleplayer.go_back],
                                                 'generated_questions':0,
                                                 'points_for_round':POINTS_FOR_FIRST_ROUND,
                                                 'time_for_round':TIME_FOR_FIRST_ROUND,
@@ -54,13 +54,13 @@ class TestRound(unittest.TestCase):
         expected_attributes_for_multiplayer = {'loaded_data':self.loaded_data,
                                                 'player1' : self.player1,
                                                 'player2' : self.player2,
-                                                'player1_score' : 0,
-                                                'player2_score' : 0,
+                                                'player1_score' : None,
+                                                'player2_score' : None,
                                                 'current_player' : None,
                                                 'offset_upper_half':260,
                                                 'offset':260,
                                                 'answers':[],
-                                                'buttons':[self.round_multiplayer.continue_button],
+                                                'buttons':[self.round_multiplayer.continue_button,self.round_multiplayer.go_back],
                                                 'generated_questions':0,
                                                 'points_for_round':POINTS_FOR_FIRST_ROUND,
                                                 'time_for_round':TIME_FOR_FIRST_ROUND,
@@ -180,7 +180,7 @@ class TestRound(unittest.TestCase):
         skip_event.pos = self.round_singleplayer.skip_button.rect.topleft
         self.assertEqual(SKIPPED,self.round_singleplayer._handle_events([skip_event]))
         random_event=pygame.event.Event(pygame.ACTIVEEVENT)
-        self.round_singleplayer.type_area = TextBoxForQuestions(screen_width // 2-115, screen_height // 2+84,250,35,lambda : None,None)
+        self.round_singleplayer.type_area = TextBoxForQuestions(screen_width // 2-115, screen_height // 2+84,250,35,lambda x,y: x+y,None)
         self.assertEqual(VALID,self.round_singleplayer._handle_events([random_event]))
         random_event_1 = pygame.event.Event(pygame.APP_DIDENTERFOREGROUND)
         random_event_2 = pygame.event.Event(pygame.CONTROLLER_AXIS_LEFTY)

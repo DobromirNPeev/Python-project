@@ -1,6 +1,6 @@
-import pygame
 from Constants import BLACK,WHITE
 from TextBoxBase import TextBoxBase
+import pygame
 
 class TextBoxForMultiplayer(TextBoxBase):
     def __init__(self, x, y, width, height,user):

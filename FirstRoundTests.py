@@ -1,9 +1,9 @@
-import unittest
 from Constants import TERMINATED,VALID,SKIPPED
 from FirstRound import FirstRound
 from Player import Player
 from Button import Button
 import pygame
+import unittest
 
 pygame.init()
 

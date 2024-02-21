@@ -1,7 +1,7 @@
-import unittest
-import pygame
 from Constants import screen_height,screen_width,WHITE,BLACK
 from TextBoxForFiles import TextBoxForFiles
+import unittest
+import pygame
 
 class TextBoxForFilesTest(unittest.TestCase):
 

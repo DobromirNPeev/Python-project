@@ -1,14 +1,13 @@
-import pygame
 from Constants import BLACK,WHITE
-import copy
 from TextBoxBase import TextBoxBase
-
+import copy
+import pygame
 
 class TextBoxForFiles(TextBoxBase):
     def __init__(self, x, y, width, height,name,data):
-        super().__init__(x,y,width,height)
-        self.name=name
-        self.data=data
+        super().__init__(x, y, width, height)
+        self.name = name
+        self.data = data
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -23,7 +22,7 @@ class TextBoxForFiles(TextBoxBase):
                     if isinstance(self.data[self.name],list):
                         self.data[self.name].append(self.text)
                     else:
-                        self.data[self.name]=copy.deepcopy(self.text)
+                        self.data[self.name] = copy.deepcopy(self.text)
                     self.text = ''
                 elif event.key == pygame.K_BACKSPACE:
                     self.text = self.text[:-1]

@@ -1,9 +1,9 @@
-import unittest
 from ThirdRound import ThirdRound
 from Player import Player
 from Button import Button
 from TextBoxForQuestions import TextBoxForQuestions
 import pygame
+import unittest
 
 class ThirdRoundTest(unittest.TestCase):
 

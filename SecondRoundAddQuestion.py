@@ -6,7 +6,6 @@ from AddQuestionMixin import AddQuestionMixin
 from OpenFiles import OpenFiles
 from FileCommands import FileCommands
 from SaveFiles import SaveFiles
-import pygame
 
 class SecondRoundAddQuestion(AddQuestionMixin):
 

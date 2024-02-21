@@ -6,7 +6,7 @@ import time
 
 class TimeCountdownTests(unittest.TestCase):
 
-    def setUp(self) -> None:
+    def setUp(self):
         pygame.init()
         self.background = pygame.image.load(BACKGROUND_PATH)
         self.screen = pygame.display.set_mode((screen_width, screen_height))

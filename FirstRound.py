@@ -1,9 +1,9 @@
 from typing import override
 from Button import Button
-import pygame
 from Constants import FIRST_ROUND_QUESTION_PATH,POINTS_FOR_FIRST_ROUND,TIME_FOR_FIRST_ROUND,QUESTIONS_FOR_FIRST_ROUND,screen_height,screen_width,TERMINATED,VALID,SKIPPED
 from Round import Round
 from SecondRound import SecondRound
+import pygame
 
 
 class FirstRound(Round):

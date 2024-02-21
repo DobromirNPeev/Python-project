@@ -1,9 +1,8 @@
-import unittest
 from SaveFiles import SaveFiles
 from LoadFiles import LoadFiles
 from Constants import FOURTH_ROUND_QUESTION_PATH
 import pygame
-from AddQuestionScreen import AddQuestionScreen
+import unittest
 
 class SaveFilesTest(unittest.TestCase):
 

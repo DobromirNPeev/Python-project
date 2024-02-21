@@ -1,10 +1,11 @@
-import pygame
 from Constants import BLACK,WHITE
 from TextBoxBase import TextBoxBase
-import inspect
 from InvalidArgumentException import InvalidArgumentException
+import inspect
+import pygame
 
 class TextBoxForQuestions(TextBoxBase):
+
     def __init__(self, x, y, width, height,action,correct_answer):
         super().__init__(x,y,width,height)
         signature = inspect.signature(action)

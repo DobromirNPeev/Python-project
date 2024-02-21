@@ -1,10 +1,10 @@
 from Button import Button
-import pygame
 from Constants import THIRD_ROUND_QUESTION_PATH,POINTS_FOR_THIRD_ROUND,TIME_FOR_THIRD_ROUND,QUESTIONS_FOR_THIRD_ROUND,AUDIO_PATH,screen_height,screen_width
 from LoadFiles import LoadFiles
 from Round import Round
 from TextBoxForQuestions import TextBoxForQuestions
 from FourthRound import FourthRound
+import pygame
 
 class ThirdRound(Round):
 

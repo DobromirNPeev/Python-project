@@ -1,6 +1,5 @@
 from typing import override
 import pygame
-import copy
 from Button import Button
 from Player import Player
 from Constants import FIFTH_ROUND_QUESTION_PATH,POINTS_FOR_FIFTH_ROUND,TIME_FOR_FIFTH_ROUND,QUESTIONS_FOR_FIFTH_ROUND,screen_height,screen_width

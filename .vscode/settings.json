@@ -4,6 +4,7 @@
         "./Multiplayer",
         "./Other",
         "./Enums",
-        "./FileManager"
+        "./FileManager",
+        "./GameScreens"
     ]
 }

@@ -1,8 +1,8 @@
-import unittest
 from FileCommands import FileCommands
 from Constants import IMAGES_PATH
 import os
 import shutil
+import unittest
 
 class FileCommandTest(unittest.TestCase):
     

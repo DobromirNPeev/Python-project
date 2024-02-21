@@ -1,8 +1,8 @@
-import unittest
-import pygame
 from Constants import screen_height,screen_width
 from TextBoxForMultiplayer import TextBoxForMultiplayer
 from Player import Player
+import unittest
+import pygame
 
 class TextBoxForFilesTest(unittest.TestCase):
 

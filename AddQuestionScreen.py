@@ -1,4 +1,3 @@
-from typing import override
 from Button import Button
 from ScreenMixin import ScreenMixin
 from Constants import screen_height,screen_width

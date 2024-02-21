@@ -1,6 +1,5 @@
 import unittest
 from OpenFiles import OpenFiles
-import pygame
 from FileCommands import FileCommands
 
 class OpenFilesTest(unittest.TestCase):

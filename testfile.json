@@ -1,1 +1,86 @@
-[{"question": "In what year did the first manned moon landing take place ?", "answer(s)": ["1969"], "needed_answers": 1}, {"question": "Can you name three famous works of literature written by William Shakespeare?", "answer(s)": ["Romeo and Juliet", "Hamlet", "Macbeth", "King Lear", "Othello", "Much Ado about nothing"], "needed_answers": 3}, {"question": "What is the longest river in the world, and which continents does it flow through?", "answer(s)": ["Nile", "Africa"], "needed_answers": 2}, {"question": "Who is often credited as the 'Father of Modern Physics' for his groundbreaking theories on relativity?", "answer(s)": ["Albert Einstein"], "needed_answers": 1}, {"question": "Name the three countries that are part of the Scandinavian region.", "answer(s)": ["Sweden", "Norway", "Denmark"], "needed_answers": 3}, {"question": "In art history, who painted the famous portrait known as the 'Mona Lisa'?", "answer(s)": ["Leonardo da vinci"], "needed_answers": 1}, {"question": "What is the chemical symbol for gold on the periodic table?", "answer(s)": ["Au"], "needed_answers": 1}, {"question": "Can you list three of the Seven Wonders of the Ancient World?", "answer(s)": ["The Colosseum", "Petra", "Chichen Itza", "Christ the Redeemer", "Machu Picchu", "Taj Mahal", "The Great Wall of China"], "needed_answers": 3}, {"question": "Who is the author of the science fiction novel '1984,' which explores dystopian themes?", "answer(s)": ["George Orwell"], "needed_answers": 1}, {"question": "something", "answer(s)": ["answer"], "needed_answers": 8}]
+[
+    {
+        "question": "In what year did the first manned moon landing take place ?",
+        "answer(s)": [
+            "1969"
+        ],
+        "needed_answers": 1
+    },
+    {
+        "question": "Can you name three famous works of literature written by William Shakespeare?",
+        "answer(s)": [
+            "Romeo and Juliet",
+            "Hamlet",
+            "Macbeth",
+            "King Lear",
+            "Othello",
+            "Much Ado about nothing"
+        ],
+        "needed_answers": 3
+    },
+    {
+        "question": "What is the longest river in the world, and which continents does it flow through?",
+        "answer(s)": [
+            "Nile",
+            "Africa"
+        ],
+        "needed_answers": 2
+    },
+    {
+        "question": "Who is often credited as the 'Father of Modern Physics' for his groundbreaking theories on relativity?",
+        "answer(s)": [
+            "Albert Einstein"
+        ],
+        "needed_answers": 1
+    },
+    {
+        "question": "Name the three countries that are part of the Scandinavian region.",
+        "answer(s)": [
+            "Sweden",
+            "Norway",
+            "Denmark"
+        ],
+        "needed_answers": 3
+    },
+    {
+        "question": "In art history, who painted the famous portrait known as the 'Mona Lisa'?",
+        "answer(s)": [
+            "Leonardo da vinci"
+        ],
+        "needed_answers": 1
+    },
+    {
+        "question": "What is the chemical symbol for gold on the periodic table?",
+        "answer(s)": [
+            "Au"
+        ],
+        "needed_answers": 1
+    },
+    {
+        "question": "Can you list three of the Seven Wonders of the Ancient World?",
+        "answer(s)": [
+            "The Colosseum",
+            "Petra",
+            "Chichen Itza",
+            "Christ the Redeemer",
+            "Machu Picchu",
+            "Taj Mahal",
+            "The Great Wall of China"
+        ],
+        "needed_answers": 3
+    },
+    {
+        "question": "Who is the author of the science fiction novel '1984,' which explores dystopian themes?",
+        "answer(s)": [
+            "George Orwell"
+        ],
+        "needed_answers": 1
+    },
+    {
+        "question": "something",
+        "answer(s)": [
+            "answer"
+        ],
+        "needed_answers": 8
+    }
+]

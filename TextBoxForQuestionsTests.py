@@ -1,8 +1,8 @@
-import unittest
-import pygame
 from Constants import screen_height,screen_width
 from TextBoxForQuestions import TextBoxForQuestions
 from InvalidArgumentException import InvalidArgumentException
+import unittest
+import pygame
 
 class TextBoxForFilesTest(unittest.TestCase):
 

@@ -4,7 +4,6 @@ from TextBoxForQuestions import TextBoxForQuestions
 from Player import Player
 from Constants import FIFTH_ROUND_QUESTION_PATH,POINTS_FOR_FIFTH_ROUND,TIME_FOR_FIFTH_ROUND,QUESTIONS_FOR_FIFTH_ROUND,screen_height,screen_width
 from MultiplayerRound import MultiplayerRound
-from ScreenMixin import ScreenMixin
 
 class FifthRoundMultiplayer(MultiplayerRound):
     def __init__(self,player1,player2):
